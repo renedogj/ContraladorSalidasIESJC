@@ -24,7 +24,7 @@ public class ActivityLectorQR extends AppCompatActivity {
     }
 
     public void leerQR(View view){
-        new IntentIntegrator(this).setCameraId(1).initiateScan();
+        new IntentIntegrator(this).setCameraId(0).initiateScan();
     }
 
     @Override
