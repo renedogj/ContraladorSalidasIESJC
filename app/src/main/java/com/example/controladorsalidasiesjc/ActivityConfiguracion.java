@@ -4,25 +4,37 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ActivityConfiguracion extends AppCompatActivity {
 
     Context context = ActivityConfiguracion.this;
     private Spinner spinEtapas;
     private Spinner spinCursos;
+    private Spinner spinAlumnos;
     private Spinner spinDiasSemana;
     private TextView tvNombreCurso;
     private EditText etEdadMinima;
+    private Switch aSwitch;
+    private Switch bSwitch;
+    private Switch cSwitch;
+    private Switch dSwitch;
 
     EtapaEducativa etapaEducativa = new EtapaEducativa();
+    Alumno alumnos = new Alumno();
+    FranjaHoraria franjas = new FranjaHoraria();
     Curso curso = new Curso();
 
     @Override
@@ -32,9 +44,14 @@ public class ActivityConfiguracion extends AppCompatActivity {
 
         spinEtapas = findViewById(R.id.spinEtapas);
         spinCursos = findViewById(R.id.spinCursos);
+        spinAlumnos = findViewById(R.id.spinAlumnos);
         spinDiasSemana = findViewById(R.id.spinDiasSemana);
         tvNombreCurso = findViewById(R.id.tvNombreCurso);
         etEdadMinima = findViewById(R.id.etEdadMinima);
+        aSwitch = findViewById(R.id.aSwitch);
+        bSwitch = findViewById(R.id.bSwitch);
+        cSwitch = findViewById(R.id.cSwitch);
+        dSwitch = findViewById(R.id.dSwitch);
 
         ArrayAdapter <String> adapterEtapas = new ArrayAdapter<String>(context, R.layout.spinner_item_etapas_cursos,EtapaEducativa.getNombreEtapaEducativas(this));
         spinEtapas.setAdapter(adapterEtapas);
@@ -58,6 +75,47 @@ public class ActivityConfiguracion extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 curso.getCurso(context,spinCursos.getSelectedItem().toString());
                 tvNombreCurso.setText(curso.nombre);
+
+                ArrayAdapter <String> adapterAlumnos = new ArrayAdapter<String>(context, R.layout.spinner_item_etapas_cursos,Alumno.getNombreAlumnosPorCurso(context, curso));
+                spinAlumnos.setAdapter(adapterAlumnos);
+
+                //Switch por etapa y curso
+                String nombreEtapa = spinEtapas.getSelectedItem().toString();
+                if (nombreEtapa.equalsIgnoreCase("C.F.G.Superior")){
+                    aSwitch.setChecked(true);
+                    bSwitch.setChecked(true);
+                } else{
+                    aSwitch.setChecked(false);
+                    aSwitch.setChecked(false);
+                }
+
+                List FranjasIniciales2 = new ArrayList<Fecha>();
+                FranjasIniciales2 = FranjaHoraria.getFranjasIniciales2(context,"DAM2V");
+                //aSwitch.setText(FranjasIniciales2.get(0).toString());
+                //bSwitch.setText(FranjasIniciales2.get(0).toString());
+
+
+
+
+            }
+
+
+
+
+
+
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+
+        spinAlumnos.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
             }
 
             @Override
@@ -82,7 +140,6 @@ public class ActivityConfiguracion extends AppCompatActivity {
         spinDiasSemana.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
             }
 
             @Override

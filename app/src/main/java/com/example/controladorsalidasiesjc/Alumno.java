@@ -4,6 +4,9 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Alumno {
     public int NIA;
     public String nombre;
@@ -20,6 +23,10 @@ public class Alumno {
         this.fechaNacimiento = fechaNacimiento;
         this.curso = curso;
     }
+
+    public Alumno(){
+
+    };
 
     public void getAlumno(Context context, int NIA){
         FeedReaderDbHelper dbHelper = new FeedReaderDbHelper(context);
@@ -61,5 +68,31 @@ public class Alumno {
             );
         }
         cursorConsulta.close();
+    }
+
+    public static List getNombreAlumnosPorCurso(Context context, Curso curso){
+        FeedReaderDbHelper dbHelper = new FeedReaderDbHelper(context);
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        String[] columnasARetornar = {
+                FeedReaderContract.TablaAlumnos.COLUMN_NAME_Nombre
+        };
+        String columnaWhere = FeedReaderContract.TablaAlumnos.COLUMN_NAME_Siglas_Curso + " = ?";
+        String[] valorWhere = { curso.siglas + "" };
+        Cursor cursorConsulta = db.query(
+                FeedReaderContract.TablaAlumnos.TABLE_NAME,
+                columnasARetornar,
+                columnaWhere,
+                valorWhere,
+                null,
+                null,
+                null
+        );
+        List nombreAlumnos = new ArrayList<String>();
+        while(cursorConsulta.moveToNext()){
+            String nombre = cursorConsulta.getString(cursorConsulta.getColumnIndexOrThrow(FeedReaderContract.TablaAlumnos.COLUMN_NAME_Nombre));
+            nombreAlumnos.add(nombre);
+        }
+        cursorConsulta.close();
+        return nombreAlumnos;
     }
 }
