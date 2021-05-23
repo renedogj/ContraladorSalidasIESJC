@@ -1,5 +1,7 @@
 package com.example.controladorsalidasiesjc;
 
+import androidx.annotation.NonNull;
+
 import java.util.Date;
 
 public class Fecha {
@@ -14,6 +16,14 @@ public class Fecha {
     //CONSTRUCTORES
     //Constructor vacio
     public Fecha(){}
+
+    public void setHora(int hora) {
+        this.hora = hora;
+    }
+
+    public void setMinuto(int minuto) {
+        this.minuto = minuto;
+    }
 
     /**
      * Constructor para inicializar con dia, mes y año
@@ -412,4 +422,12 @@ public class Fecha {
             return false;
         }
     }
+
+    @NonNull
+    @Override
+    public String toString() {
+        return String.valueOf(hora)+":"+String.valueOf(minuto);
+    }
+
+
 }
