@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
@@ -31,6 +30,12 @@ public class ActivityConfiguracion extends AppCompatActivity {
     private Switch bSwitch;
     private Switch cSwitch;
     private Switch dSwitch;
+    private Switch eSwitch;
+    private Switch fSwitch;
+    private Switch gSwitch;
+    private Switch hSwitch;
+    private Switch iSwitch;
+
 
     EtapaEducativa etapaEducativa = new EtapaEducativa();
     Alumno alumnos = new Alumno();
@@ -52,6 +57,11 @@ public class ActivityConfiguracion extends AppCompatActivity {
         bSwitch = findViewById(R.id.bSwitch);
         cSwitch = findViewById(R.id.cSwitch);
         dSwitch = findViewById(R.id.dSwitch);
+        eSwitch = findViewById(R.id.eSwitch);
+        fSwitch = findViewById(R.id.fSwitch);
+        gSwitch = findViewById(R.id.gSwitch);
+        hSwitch = findViewById(R.id.hSwitch);
+        iSwitch = findViewById(R.id.iSwitch);
 
         ArrayAdapter <String> adapterEtapas = new ArrayAdapter<String>(context, R.layout.spinner_item_etapas_cursos,EtapaEducativa.getNombreEtapaEducativas(this));
         spinEtapas.setAdapter(adapterEtapas);
@@ -79,20 +89,8 @@ public class ActivityConfiguracion extends AppCompatActivity {
                 ArrayAdapter <String> adapterAlumnos = new ArrayAdapter<String>(context, R.layout.spinner_item_etapas_cursos,Alumno.getNombreAlumnosPorCurso(context, curso));
                 spinAlumnos.setAdapter(adapterAlumnos);
 
-                //Switch por etapa y curso
-                String nombreEtapa = spinEtapas.getSelectedItem().toString();
-                if (nombreEtapa.equalsIgnoreCase("C.F.G.Superior")){
-                    aSwitch.setChecked(true);
-                    bSwitch.setChecked(true);
-                } else{
-                    aSwitch.setChecked(false);
-                    aSwitch.setChecked(false);
-                }
-
-                List FranjasIniciales2 = new ArrayList<Fecha>();
-                FranjasIniciales2 = FranjaHoraria.getFranjasIniciales2(context,"DAM2V");
-                //aSwitch.setText(FranjasIniciales2.get(0).toString());
-                //bSwitch.setText(FranjasIniciales2.get(0).toString());
+                establecerFranjasPorCursoDiurno(spinCursos.getSelectedItem().toString());
+                establecerFranjasPorCursoVespertino(spinCursos.getSelectedItem().toString());
 
 
 
@@ -110,6 +108,11 @@ public class ActivityConfiguracion extends AppCompatActivity {
 
             }
         });
+
+
+
+
+
 
 
         spinAlumnos.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -148,4 +151,53 @@ public class ActivityConfiguracion extends AppCompatActivity {
             }
         });
     }
+
+
+    public void estadoSwitches(){
+
+    }
+
+    public void establecerFranjasPorCursoDiurno(String curso){
+        List FranjasIniciales2 = new ArrayList<Fecha>();
+        FranjasIniciales2 = FranjaHoraria.getFranjasIniciales2(context,curso);
+        List FranjasFinales = new ArrayList<Fecha>();
+        FranjasFinales = FranjaHoraria.getFranjasFinales(context,curso);
+
+
+        if(spinEtapas.getSelectedItem().toString().equalsIgnoreCase("E.S.O") || spinEtapas.getSelectedItem().toString().equalsIgnoreCase("Bachillerato") ){
+            aSwitch.setText(FranjasIniciales2.get(0).toString()+"-"+FranjasFinales.get(0).toString());
+            bSwitch.setText(FranjasIniciales2.get(1).toString()+"-"+FranjasFinales.get(1).toString());
+            cSwitch.setText(FranjasIniciales2.get(2).toString()+"-"+FranjasFinales.get(2).toString());
+            dSwitch.setText(FranjasIniciales2.get(3).toString()+"-"+FranjasFinales.get(3).toString());
+            eSwitch.setText(FranjasIniciales2.get(4).toString()+"-"+FranjasFinales.get(4).toString());
+            fSwitch.setText(FranjasIniciales2.get(5).toString()+"-"+FranjasFinales.get(5).toString());
+            gSwitch.setText(FranjasIniciales2.get(6).toString()+"-"+FranjasFinales.get(6).toString());
+            hSwitch.setEnabled(false);
+            iSwitch.setEnabled(false);
+        }
+
+    }
+
+    public void establecerFranjasPorCursoVespertino(String curso){
+        List FranjasIniciales3 = new ArrayList<Fecha>();
+        FranjasIniciales3 = FranjaHoraria.getFranjasIniciales2(context,curso);
+        List FranjasFinales2 = new ArrayList<Fecha>();
+        FranjasFinales2 = FranjaHoraria.getFranjasFinales(context,curso);
+
+        if(spinEtapas.getSelectedItem().toString().equalsIgnoreCase("C.F.G.Superior") || spinEtapas.getSelectedItem().toString().equalsIgnoreCase("F.P.Basica") || spinEtapas.getSelectedItem().toString().equalsIgnoreCase("C.F.G.Medio")){
+            aSwitch.setText(FranjasIniciales3.get(0).toString()+"-"+FranjasFinales2.get(0).toString());
+            bSwitch.setText(FranjasIniciales3.get(1).toString()+"-"+FranjasFinales2.get(1).toString());
+            cSwitch.setText(FranjasIniciales3.get(2).toString()+"-"+FranjasFinales2.get(2).toString());
+            dSwitch.setText(FranjasIniciales3.get(3).toString()+"-"+FranjasFinales2.get(3).toString());
+            eSwitch.setText(FranjasIniciales3.get(4).toString()+"-"+FranjasFinales2.get(4).toString());
+            fSwitch.setText(FranjasIniciales3.get(5).toString()+"-"+FranjasFinales2.get(5).toString());
+            gSwitch.setText(FranjasIniciales3.get(6).toString()+"-"+FranjasFinales2.get(6).toString());
+            hSwitch.setText("Extra");
+            iSwitch.setText("Extra");
+            hSwitch.setEnabled(false);
+            iSwitch.setEnabled(false);
+
+        }
+    }
+
 }
