@@ -3,6 +3,7 @@ package com.example.controladorsalidasiesjc;
 import androidx.annotation.NonNull;
 
 import java.util.Date;
+import java.util.IllegalFormatCodePointException;
 
 public class Fecha {
     //ATRIBUTOS
@@ -426,7 +427,17 @@ public class Fecha {
     @NonNull
     @Override
     public String toString() {
-        return String.valueOf(hora)+":"+String.valueOf(minuto);
+
+        if (String.valueOf(minuto).length()!=2){
+            String minutoStr = "0"+String.valueOf(minuto);
+                return String.valueOf(hora)+":"+minutoStr;
+        }else if (String.valueOf(hora).length()!=2 && String.valueOf(minuto).length()==2){
+            String horaStr = "0"+String.valueOf(hora);
+            return horaStr+":"+String.valueOf(minuto);
+        }else{
+            return String.valueOf(hora)+":"+String.valueOf(minuto);
+        }
+
     }
 
 

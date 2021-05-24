@@ -116,8 +116,38 @@ public class FranjaHoraria {
         while(cursorConsulta.moveToNext()){
 
             int hI = cursorConsulta.getInt(cursorConsulta.getColumnIndexOrThrow(FeedReaderContract.TablaFranjasHorarias.COLUMN_NAME_Hora_Inicio));
-            int mF = cursorConsulta.getInt(cursorConsulta.getColumnIndexOrThrow(FeedReaderContract.TablaFranjasHorarias.COLUMN_NAME_Minuto_Inicio));
-            HorasIniciales.add(new Fecha(hI,mF));
+            int mI = cursorConsulta.getInt(cursorConsulta.getColumnIndexOrThrow(FeedReaderContract.TablaFranjasHorarias.COLUMN_NAME_Minuto_Inicio));
+            HorasIniciales.add(new Fecha(hI,mI));
+        }
+        cursorConsulta.close();
+        return HorasIniciales;
+    }
+
+    public static List getFranjasFinales(Context context,String siglas){
+        FeedReaderDbHelper dbHelper = new FeedReaderDbHelper(context);
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        String[] columnasARetornar = {
+                FeedReaderContract.TablaFranjasHorarias.COLUMN_NAME_Hora_Final,
+                FeedReaderContract.TablaFranjasHorarias.COLUMN_NAME_Minuto_Final
+        };
+        String columnaWhere = FeedReaderContract.TablaFranjasHorarias.COLUMN_NAME_ID_Franja_Horaria + " IN (SELECT ID_Franja_horaria FROM Franjas_horarias_cursos_permitidos WHERE Siglas= ?"+");";
+        Cursor cursorConsulta = db.query(
+                FeedReaderContract.TablaFranjasHorarias.TABLE_NAME,
+                columnasARetornar,
+                columnaWhere,
+                new String[]{siglas},
+                null,
+                null,
+                null
+        );
+
+
+        List HorasIniciales = new ArrayList<Fecha>();
+        while(cursorConsulta.moveToNext()){
+
+            int hF = cursorConsulta.getInt(cursorConsulta.getColumnIndexOrThrow(FeedReaderContract.TablaFranjasHorarias.COLUMN_NAME_Hora_Final));
+            int mF = cursorConsulta.getInt(cursorConsulta.getColumnIndexOrThrow(FeedReaderContract.TablaFranjasHorarias.COLUMN_NAME_Minuto_Final));
+            HorasIniciales.add(new Fecha(hF,mF));
         }
         cursorConsulta.close();
         return HorasIniciales;
