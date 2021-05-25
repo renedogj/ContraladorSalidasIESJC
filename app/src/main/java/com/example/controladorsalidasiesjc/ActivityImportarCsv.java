@@ -28,12 +28,14 @@ public class ActivityImportarCsv extends AppCompatActivity {
     public static final int requestCodeCursos = 1;
     public static final int requestCodeEtapas = 3;
     public static final int requestCodeFranjasHorarias = 4;
+    public static final int requestCodeRelacionFranjasCursos = 5;
     Context context = ActivityImportarCsv.this;
 
     private Button bttnImportarAlumnos;
     private Button bttnImportarCursos;
     private Button bttnImportarEtapasEducativas;
     private Button bttnImportarFranjasHorarias;
+    private Button bttnImportarRelacionFranjasCursos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +46,7 @@ public class ActivityImportarCsv extends AppCompatActivity {
         bttnImportarCursos = findViewById(R.id.bttnImportarCursos);
         bttnImportarEtapasEducativas = findViewById(R.id.bttnImportarEtapasEducativas);
         bttnImportarFranjasHorarias = findViewById(R.id.bttnImportarFranjasHorarias);
+        bttnImportarRelacionFranjasCursos = findViewById(R.id.bttnImportarRelacionFranjasCursos);
 
         pedirPermisos();
 
@@ -61,6 +64,10 @@ public class ActivityImportarCsv extends AppCompatActivity {
 
         bttnImportarFranjasHorarias.setOnClickListener(v -> {
             iniciarIntentArchivos(requestCodeFranjasHorarias);
+        });
+
+        bttnImportarRelacionFranjasCursos.setOnClickListener(v -> {
+            iniciarIntentArchivos(requestCodeRelacionFranjasCursos);
         });
     }
 
@@ -93,7 +100,7 @@ public class ActivityImportarCsv extends AppCompatActivity {
 
             switch (requestCode) {
                 case requestCodeAlumnos:
-                    limpiarTablas(FeedReaderContract.TablaCursos.TABLE_NAME);
+                    limpiarTablas(FeedReaderContract.TablaAlumnos.TABLE_NAME);
                     while ((cadena = bufferedReader.readLine()) != null) {
                         array = cadena.split(";");
 
@@ -192,6 +199,21 @@ public class ActivityImportarCsv extends AppCompatActivity {
                     }
                     Toast.makeText(this, "Franjas horarias importadas correctamente", Toast.LENGTH_SHORT).show();
                     break;
+                case requestCodeRelacionFranjasCursos:
+                    limpiarTablas(FeedReaderContract.TablaFranjasHorariasCursosPermitidos.TABLE_NAME);
+                    while ((cadena = bufferedReader.readLine()) != null) {
+
+                        array = cadena.split(";");
+
+                        ContentValues registro = new ContentValues();
+                        registro.put(FeedReaderContract.TablaFranjasHorariasCursosPermitidos.COLUMN_NAME_Relacion_FC, array[0]);
+                        registro.put(FeedReaderContract.TablaFranjasHorariasCursosPermitidos.COLUMN_NAME_ID_Franja_Horaria, array[1]);
+                        registro.put(FeedReaderContract.TablaFranjasHorariasCursosPermitidos.COLUMN_NAME_Siglas_Curso, array[2]);
+
+                        db.insert(FeedReaderContract.TablaFranjasHorariasCursosPermitidos.TABLE_NAME, null, registro);
+                    }
+                    Toast.makeText(this, "Relación de franjas horarias importadas correctamente", Toast.LENGTH_SHORT).show();
+                    break;
             }
             db.close();
         } catch (IOException e) {
@@ -213,7 +235,6 @@ public class ActivityImportarCsv extends AppCompatActivity {
             ActivityCompat.requestPermissions(ActivityImportarCsv.this, new String[]
                             {Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE},
                     0);
-
         }
     }
 }

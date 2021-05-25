@@ -58,5 +58,15 @@
             android:layout_height="wrap_content"
             android:padding="10dp"
             android:text="Franjas horarias" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="30dp" />
+
+        <Button
+            android:id="@+id/bttnImportarRelacionFranjasCursos"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="RELACION FRANJAS CURSOS" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

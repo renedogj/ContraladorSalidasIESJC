@@ -1,45 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="408dp"
+        android:layout_height="600dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="4dp"
         android:padding="5dp"
+        android:translationX="-15dp"
+        android:translationY="-15dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical">
 
             <Spinner
                 android:id="@+id/spinEtapas"
-                android:layout_width="match_parent"
+                android:layout_width="311dp"
                 android:layout_height="45dp"
                 android:layout_marginLeft="25dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="25dp"
-                android:layout_marginBottom="10dp" />
+                android:layout_marginBottom="10dp"
+                android:translationY="5dp" />
 
             <Spinner
                 android:id="@+id/spinCursos"
-                android:layout_width="match_parent"
+                android:layout_width="311dp"
                 android:layout_height="45dp"
                 android:layout_marginLeft="25dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="25dp"
-                android:layout_marginBottom="10dp" />
+                android:layout_marginBottom="10dp"
+                android:translationY="-10dp" />
 
             <TextView
                 android:id="@+id/tvNombreCurso"
-                android:layout_width="match_parent"
-                android:layout_height="70dp"
+                android:layout_width="375dp"
+                android:layout_height="wrap_content"
                 android:gravity="left|center_vertical"
                 android:lineHeight="22dp"
                 android:paddingLeft="12dp"
@@ -47,7 +52,32 @@
                 android:paddingRight="12dp"
                 android:paddingBottom="5dp"
                 android:text="2º de C.F.G.S. (Programación de la producción en fabricación mecánica) (Pres.)"
-                android:textSize="16sp" />
+                android:textSize="11sp"
+                android:textStyle="bold"
+                android:translationX="0dp"
+                android:translationY="-10dp" />
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="93dp"
+                android:layout_height="wrap_content"
+                android:text="Alumnos:"
+                android:textAlignment="viewStart"
+                android:textAllCaps="false"
+                android:textSize="16dp"
+                android:textStyle="bold"
+                android:translationX="10dp"
+                android:translationY="0dp" />
+
+            <Spinner
+                android:id="@+id/spinAlumnos"
+                android:layout_width="311dp"
+                android:layout_height="45dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="25dp"
+                android:translationX="24dp"
+                android:translationY="-10dp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -73,7 +103,8 @@
                     android:id="@+id/etEdadMinima"
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
-                    android:inputType="number" />
+                    android:inputType="number"
+                    android:translationX="-70dp" />
             </LinearLayout>
 
             <TextView
@@ -85,9 +116,10 @@
                 android:paddingTop="15dp"
                 android:paddingRight="12dp"
                 android:paddingBottom="15dp"
-                android:text="Franjas Horarias a las que pueden salir"
-                android:textSize="19sp"
-                android:textStyle="bold" />
+                android:text="Franjas Horarias a las que pueden salir:"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:translationY="-15dp" />
 
             <Spinner
                 android:id="@+id/spinDiasSemana"
@@ -96,38 +128,126 @@
                 android:layout_marginLeft="15dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="150dp"
-                android:layout_marginBottom="10dp" />
+                android:layout_marginBottom="10dp"
+                android:translationX="60dp"
+                android:translationY="-33dp" />
 
-            <LinearLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/linearLayout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:padding="10dp">
+                android:translationY="-25dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                tools:layout_editor_absoluteX="1dp">
 
                 <Switch
-                    android:id="@+id/switch1"
-                    android:layout_width="match_parent"
+                    android:id="@+id/aSwitch"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:padding="10dp"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="4dp"
                     android:text="Switch"
-                    tools:ignore="UseSwitchCompatOrMaterialXml" />
+                    android:textSize="12dp"
+                    android:translationX="-10dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <Switch
-                    android:id="@+id/switch2"
-                    android:layout_width="match_parent"
+                    android:id="@+id/bSwitch"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:padding="10dp"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginEnd="45dp"
                     android:text="Switch"
-                    tools:ignore="UseSwitchCompatOrMaterialXml" />
+                    android:textSize="12dp"
+                    android:translationX="30dp"
+                    app:layout_constraintEnd_toStartOf="@+id/cSwitch"
+                    app:layout_constraintStart_toEndOf="@+id/aSwitch"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <Switch
-                    android:id="@+id/switch3"
-                    android:layout_width="match_parent"
+                    android:id="@+id/cSwitch"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:padding="10dp"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginEnd="45dp"
                     android:text="Switch"
-                    tools:ignore="UseSwitchCompatOrMaterialXml" />
-            </LinearLayout>
+                    android:textSize="12dp"
+                    android:translationX="-35dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/bSwitch"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <Switch
+                    android:id="@+id/dSwitch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="9dp"
+                    android:text="Switch"
+                    android:textSize="12dp"
+                    android:translationX="-10dp"
+                    app:layout_constraintStart_toStartOf="@+id/aSwitch"
+                    app:layout_constraintTop_toBottomOf="@+id/aSwitch" />
+
+                <Switch
+                    android:id="@+id/eSwitch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="9dp"
+                    android:text="Switch"
+                    android:textSize="12dp"
+                    android:translationX="30dp"
+                    app:layout_constraintStart_toStartOf="@+id/bSwitch"
+                    app:layout_constraintTop_toBottomOf="@+id/bSwitch" />
+
+                <Switch
+                    android:id="@+id/fSwitch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="9dp"
+                    android:text="Switch"
+                    android:textSize="12dp"
+                    android:translationX="-35dp"
+                    app:layout_constraintStart_toStartOf="@+id/cSwitch"
+                    app:layout_constraintTop_toBottomOf="@+id/cSwitch" />
+
+                <Switch
+                    android:id="@+id/gSwitch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="Switch"
+                    android:textSize="12dp"
+                    android:translationX="-10dp"
+                    app:layout_constraintStart_toStartOf="@+id/dSwitch"
+                    app:layout_constraintTop_toBottomOf="@+id/dSwitch" />
+
+                <Switch
+                    android:id="@+id/hSwitch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="Switch"
+                    android:textSize="12dp"
+                    android:translationX="30dp"
+                    app:layout_constraintStart_toStartOf="@+id/eSwitch"
+                    app:layout_constraintTop_toBottomOf="@+id/eSwitch" />
+
+                <Switch
+                    android:id="@+id/iSwitch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="Switch"
+                    android:textSize="12dp"
+                    android:translationX="-35dp"
+                    app:layout_constraintStart_toStartOf="@+id/fSwitch"
+                    app:layout_constraintTop_toBottomOf="@+id/fSwitch" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
         </LinearLayout>
     </ScrollView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
