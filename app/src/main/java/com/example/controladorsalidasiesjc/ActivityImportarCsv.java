@@ -160,6 +160,7 @@ public class ActivityImportarCsv extends AppCompatActivity {
                     Toast.makeText(this, "Cursos importados correctamente", Toast.LENGTH_SHORT).show();
                     break;
                 case requestCodeEtapas:
+                    limpiarTablas(FeedReaderContract.TablaEtapasEducativas.TABLE_NAME);
                     while ((cadena = bufferedReader.readLine()) != null) {
 
                         array = cadena.split(";");
@@ -174,6 +175,7 @@ public class ActivityImportarCsv extends AppCompatActivity {
                     Toast.makeText(this, "Etapas importadas correctamente", Toast.LENGTH_SHORT).show();
                     break;
                 case requestCodeFranjasHorarias:
+                    limpiarTablas(FeedReaderContract.TablaFranjasHorarias.TABLE_NAME);
                     while ((cadena = bufferedReader.readLine()) != null) {
 
                         array = cadena.split(";");
