@@ -105,13 +105,18 @@ public class FeedReaderContract {
         public static final String COLUMN_NAME_ID_Registro = "ID_Registro";
         public static final String COLUMN_NAME_NIA = TablaAlumnos.COLUMN_NAME_NIA;
         public static final String COLUMN_NAME_ID_Franja_Horaria = TablaFranjasHorarias.COLUMN_NAME_ID_Franja_Horaria;
-
+        public static final String COLUMN_NAME_FECHA_SALIDA ="Fecha_Salida";
         public static final String SQL_CREATE_ENTRIES =
                 "CREATE TABLE " + TABLE_NAME + " (" +
                         COLUMN_NAME_ID_Registro + " INTEGER PRIMARY KEY," +
                         COLUMN_NAME_NIA + " INTERGER," +
-                        COLUMN_NAME_ID_Franja_Horaria + " INTERGER)";
+                        COLUMN_NAME_ID_Franja_Horaria + " INTERGER," +
+                        COLUMN_NAME_FECHA_SALIDA+ "DATE)";
 
         public static final String SQL_DELETE_ENTRIES = "DROP TABLE IF EXISTS " + TABLE_NAME;
+        //Bien hecha cuando esté lo de Jorge
+        //public static final String SQL_DELETE_WEEKLY = "DELETE FROM "+TABLE_NAME+ " WHERE DATEDIFF(DAY,"+COLUMN_NAME_FECHA_SALIDA+","+ActivityLectorQR.fecha_actual()+")>=7";
+        //Pruebas
+        public static final String SQL_DELETE_WEEKLY = "DELETE FROM "+TABLE_NAME+ " WHERE DATEDIFF(DAY,"+COLUMN_NAME_FECHA_SALIDA+","+"'2021-05-25'"+")>=7";
     }
 }

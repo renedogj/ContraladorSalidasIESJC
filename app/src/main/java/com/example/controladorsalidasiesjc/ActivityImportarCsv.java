@@ -167,6 +167,7 @@ public class ActivityImportarCsv extends AppCompatActivity {
                     Toast.makeText(this, "Cursos importados correctamente", Toast.LENGTH_SHORT).show();
                     break;
                 case requestCodeEtapas:
+                    limpiarTablas(FeedReaderContract.TablaEtapasEducativas.TABLE_NAME);
                     while ((cadena = bufferedReader.readLine()) != null) {
 
                         array = cadena.split(";");

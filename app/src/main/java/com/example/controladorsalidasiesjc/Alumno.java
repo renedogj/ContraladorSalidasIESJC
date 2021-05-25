@@ -41,7 +41,7 @@ public class Alumno {
                 FeedReaderContract.TablaAlumnos.COLUMN_NAME_Año_Nacimiento,
                 FeedReaderContract.TablaAlumnos.COLUMN_NAME_Siglas_Curso
         };
-        String columnaWhere = FeedReaderContract.TablaAlumnos.COLUMN_NAME_Siglas_Curso + " = ?";
+        String columnaWhere = FeedReaderContract.TablaAlumnos.COLUMN_NAME_NIA + " = ?";
         String[] valorWhere = { NIA + "" };
         Cursor cursorConsulta = db.query(
                 FeedReaderContract.TablaAlumnos.TABLE_NAME,
@@ -68,6 +68,31 @@ public class Alumno {
             );
         }
         cursorConsulta.close();
+    }
+    
+    public static String getNombreAlumno(Context context, int NIA){
+        FeedReaderDbHelper dbHelper = new FeedReaderDbHelper(context);
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        String[] columnasARetornar = {
+                FeedReaderContract.TablaAlumnos.COLUMN_NAME_Nombre,
+        };
+        String columnaWhere = FeedReaderContract.TablaAlumnos.COLUMN_NAME_Siglas_Curso + " = ?";
+        String[] valorWhere = { NIA + "" };
+        Cursor cursorConsulta = db.query(
+                FeedReaderContract.TablaAlumnos.TABLE_NAME,
+                columnasARetornar,
+                columnaWhere,
+                valorWhere,
+                null,
+                null,
+                null
+        );
+        String nombre = null;
+        if(cursorConsulta.moveToNext()){
+            nombre = cursorConsulta.getString(cursorConsulta.getColumnIndexOrThrow(FeedReaderContract.TablaAlumnos.COLUMN_NAME_Nombre));
+        }
+        cursorConsulta.close();
+        return nombre;
     }
 
     public static List getNombreAlumnosPorCurso(Context context, Curso curso){
