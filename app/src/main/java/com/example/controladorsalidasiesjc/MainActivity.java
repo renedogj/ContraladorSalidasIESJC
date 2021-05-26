@@ -2,11 +2,15 @@ package com.example.controladorsalidasiesjc;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
+
+    Context context = MainActivity.this;
 
     private Button bttnConfiguracion;
     private Button bttnImportarCSV;
@@ -32,5 +36,9 @@ public class MainActivity extends AppCompatActivity {
         bttnImportarCSV.setOnClickListener(v ->
                 startActivity(new Intent(MainActivity.this, ActivityImportarCsv.class))
         );
+
+        FeedReaderDbHelper dbHelper = new FeedReaderDbHelper(context);
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        db.execSQL(FeedReaderContract.TablaRegistroSalida.SQL_DELETE_WEEKLY);
     }
 }

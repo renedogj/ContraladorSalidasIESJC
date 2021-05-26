@@ -201,7 +201,7 @@ public class ActivityImportarCsv extends AppCompatActivity {
                     break;
                 case requestCodeRelacionFranjasCursos:
                     limpiarTablas(FeedReaderContract.TablaFranjasHorariasCursosPermitidos.TABLE_NAME);
-                    while ((cadena = bufferedReader.readLine()) != null) {
+                    /*while ((cadena = bufferedReader.readLine()) != null) {
 
                         array = cadena.split(";");
 
@@ -211,7 +211,7 @@ public class ActivityImportarCsv extends AppCompatActivity {
                         registro.put(FeedReaderContract.TablaFranjasHorariasCursosPermitidos.COLUMN_NAME_Siglas_Curso, array[2]);
 
                         db.insert(FeedReaderContract.TablaFranjasHorariasCursosPermitidos.TABLE_NAME, null, registro);
-                    }
+                    }*/
                     Toast.makeText(this, "Relación de franjas horarias importadas correctamente", Toast.LENGTH_SHORT).show();
                     break;
             }

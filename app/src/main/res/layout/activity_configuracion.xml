@@ -6,19 +6,16 @@
     android:layout_height="match_parent">
 
     <ScrollView
-        android:layout_width="408dp"
-        android:layout_height="600dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="4dp"
-        android:padding="5dp"
-        android:translationX="-15dp"
-        android:translationY="-15dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:padding="5dp"
             android:orientation="vertical">
 
             <Spinner
@@ -132,121 +129,10 @@
                 android:translationX="60dp"
                 android:translationY="-33dp" />
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/linearLayout"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerView"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:translationY="-25dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                tools:layout_editor_absoluteX="1dp">
-
-                <Switch
-                    android:id="@+id/aSwitch"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="24dp"
-                    android:layout_marginTop="4dp"
-                    android:text="Switch"
-                    android:textSize="12dp"
-                    android:translationX="-10dp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <Switch
-                    android:id="@+id/bSwitch"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="30dp"
-                    android:layout_marginTop="4dp"
-                    android:layout_marginEnd="45dp"
-                    android:text="Switch"
-                    android:textSize="12dp"
-                    android:translationX="30dp"
-                    app:layout_constraintEnd_toStartOf="@+id/cSwitch"
-                    app:layout_constraintStart_toEndOf="@+id/aSwitch"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <Switch
-                    android:id="@+id/cSwitch"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="30dp"
-                    android:layout_marginTop="4dp"
-                    android:layout_marginEnd="45dp"
-                    android:text="Switch"
-                    android:textSize="12dp"
-                    android:translationX="-35dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/bSwitch"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <Switch
-                    android:id="@+id/dSwitch"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="9dp"
-                    android:text="Switch"
-                    android:textSize="12dp"
-                    android:translationX="-10dp"
-                    app:layout_constraintStart_toStartOf="@+id/aSwitch"
-                    app:layout_constraintTop_toBottomOf="@+id/aSwitch" />
-
-                <Switch
-                    android:id="@+id/eSwitch"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="9dp"
-                    android:text="Switch"
-                    android:textSize="12dp"
-                    android:translationX="30dp"
-                    app:layout_constraintStart_toStartOf="@+id/bSwitch"
-                    app:layout_constraintTop_toBottomOf="@+id/bSwitch" />
-
-                <Switch
-                    android:id="@+id/fSwitch"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="9dp"
-                    android:text="Switch"
-                    android:textSize="12dp"
-                    android:translationX="-35dp"
-                    app:layout_constraintStart_toStartOf="@+id/cSwitch"
-                    app:layout_constraintTop_toBottomOf="@+id/cSwitch" />
-
-                <Switch
-                    android:id="@+id/gSwitch"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:text="Switch"
-                    android:textSize="12dp"
-                    android:translationX="-10dp"
-                    app:layout_constraintStart_toStartOf="@+id/dSwitch"
-                    app:layout_constraintTop_toBottomOf="@+id/dSwitch" />
-
-                <Switch
-                    android:id="@+id/hSwitch"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:text="Switch"
-                    android:textSize="12dp"
-                    android:translationX="30dp"
-                    app:layout_constraintStart_toStartOf="@+id/eSwitch"
-                    app:layout_constraintTop_toBottomOf="@+id/eSwitch" />
-
-                <Switch
-                    android:id="@+id/iSwitch"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:text="Switch"
-                    android:textSize="12dp"
-                    android:translationX="-35dp"
-                    app:layout_constraintStart_toStartOf="@+id/fSwitch"
-                    app:layout_constraintTop_toBottomOf="@+id/fSwitch" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
+                android:layout_height="wrap_content" />
         </LinearLayout>
     </ScrollView>
 

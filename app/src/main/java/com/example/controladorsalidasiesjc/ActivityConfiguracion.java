@@ -1,13 +1,17 @@
 package com.example.controladorsalidasiesjc;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
+import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Switch;
@@ -36,11 +40,19 @@ public class ActivityConfiguracion extends AppCompatActivity {
     private Switch hSwitch;
     private Switch iSwitch;
 
+    private RecyclerView recyclerView;
+    private Switch switchFranjaHoraria;
+    List<String> listSwich;
+    List listFranjasHorarias;
+    List listIDFranjasHorarias;
+    List listRelacioneSFranjasCursos;
+
 
     EtapaEducativa etapaEducativa = new EtapaEducativa();
     Alumno alumnos = new Alumno();
     FranjaHoraria franjas = new FranjaHoraria();
     Curso curso = new Curso();
+    String diaSemanaSelect;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,15 +65,11 @@ public class ActivityConfiguracion extends AppCompatActivity {
         spinDiasSemana = findViewById(R.id.spinDiasSemana);
         tvNombreCurso = findViewById(R.id.tvNombreCurso);
         etEdadMinima = findViewById(R.id.etEdadMinima);
-        aSwitch = findViewById(R.id.aSwitch);
-        bSwitch = findViewById(R.id.bSwitch);
-        cSwitch = findViewById(R.id.cSwitch);
-        dSwitch = findViewById(R.id.dSwitch);
-        eSwitch = findViewById(R.id.eSwitch);
-        fSwitch = findViewById(R.id.fSwitch);
-        gSwitch = findViewById(R.id.gSwitch);
-        hSwitch = findViewById(R.id.hSwitch);
-        iSwitch = findViewById(R.id.iSwitch);
+
+
+        recyclerView = findViewById(R.id.recyclerView);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        switchFranjaHoraria = findViewById(R.id.switchAdapter);
 
         ArrayAdapter <String> adapterEtapas = new ArrayAdapter<String>(context, R.layout.spinner_item_etapas_cursos,EtapaEducativa.getNombreEtapaEducativas(this));
         spinEtapas.setAdapter(adapterEtapas);
@@ -86,11 +94,14 @@ public class ActivityConfiguracion extends AppCompatActivity {
                 curso.getCurso(context,spinCursos.getSelectedItem().toString());
                 tvNombreCurso.setText(curso.nombre);
 
-                ArrayAdapter <String> adapterAlumnos = new ArrayAdapter<String>(context, R.layout.spinner_item_etapas_cursos, Alumno.getNombreAlumnosPorCurso(context, curso));
+                List nombreAlumnosPorCurso = Alumno.getNombreAlumnosPorCurso(context,curso);
+                nombreAlumnosPorCurso.add(0,"Todos");
+                ArrayAdapter <String> adapterAlumnos = new ArrayAdapter<String>(context, R.layout.spinner_item_etapas_cursos, nombreAlumnosPorCurso);
                 spinAlumnos.setAdapter(adapterAlumnos);
 
-                establecerFranjasPorCursoDiurno(spinCursos.getSelectedItem().toString());
-                establecerFranjasPorCursoVespertino(spinCursos.getSelectedItem().toString());
+                listFranjasHorarias = FranjaHoraria.getFranjasDiaSemana(context,diaSemanaSelect);
+                SwichAdapter adapter = new SwichAdapter(listFranjasHorarias,curso,context);
+                recyclerView.setAdapter(adapter);
             }
 
             @Override
@@ -114,8 +125,12 @@ public class ActivityConfiguracion extends AppCompatActivity {
         etEdadMinima.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event){
+                String edad = etEdadMinima.getText().toString();
                 if(keyCode >=7 && keyCode <=16){
-                    etapaEducativa.actualizarEdadMinima(context,Integer.parseInt(etEdadMinima.getText().toString()));
+                    if(edad.equals("")){
+                        edad = (keyCode-7)+"";
+                    }
+                    etapaEducativa.actualizarEdadMinima(context,Integer.parseInt(edad));
                 }
                 return false;
             }
@@ -127,6 +142,13 @@ public class ActivityConfiguracion extends AppCompatActivity {
         spinDiasSemana.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                diaSemanaSelect = spinDiasSemana.getSelectedItem().toString();
+                listFranjasHorarias = FranjaHoraria.getFranjasDiaSemana(context,diaSemanaSelect);
+                //listIDFranjasHorarias = FranjaHoraria.getIDFranjasDiaSemana(context,diaSemanaSelect);
+                //listRelacioneSFranjasCursos = RelacionFranjasCursos.getRelacionesFranjasCursos(context,diaSemanaSelect);
+
+                SwichAdapter adapter = new SwichAdapter(listFranjasHorarias,curso,context);
+                recyclerView.setAdapter(adapter);
             }
 
             @Override
@@ -135,48 +157,4 @@ public class ActivityConfiguracion extends AppCompatActivity {
             }
         });
     }
-
-    public void establecerFranjasPorCursoDiurno(String curso){
-        List FranjasIniciales2 = new ArrayList<Fecha>();
-        FranjasIniciales2 = FranjaHoraria.getFranjasIniciales2(context,curso);
-        List FranjasFinales = new ArrayList<Fecha>();
-        FranjasFinales = FranjaHoraria.getFranjasFinales(context,curso);
-
-
-        if(spinEtapas.getSelectedItem().toString().equalsIgnoreCase("E.S.O") || spinEtapas.getSelectedItem().toString().equalsIgnoreCase("Bachillerato") ){
-            aSwitch.setText(FranjasIniciales2.get(0).toString()+"-"+FranjasFinales.get(0).toString());
-            bSwitch.setText(FranjasIniciales2.get(1).toString()+"-"+FranjasFinales.get(1).toString());
-            cSwitch.setText(FranjasIniciales2.get(2).toString()+"-"+FranjasFinales.get(2).toString());
-            dSwitch.setText(FranjasIniciales2.get(3).toString()+"-"+FranjasFinales.get(3).toString());
-            eSwitch.setText(FranjasIniciales2.get(4).toString()+"-"+FranjasFinales.get(4).toString());
-            fSwitch.setText(FranjasIniciales2.get(5).toString()+"-"+FranjasFinales.get(5).toString());
-            gSwitch.setText(FranjasIniciales2.get(6).toString()+"-"+FranjasFinales.get(6).toString());
-            hSwitch.setEnabled(false);
-            iSwitch.setEnabled(false);
-        }
-
-    }
-
-    public void establecerFranjasPorCursoVespertino(String curso){
-        List FranjasIniciales3 = new ArrayList<Fecha>();
-        FranjasIniciales3 = FranjaHoraria.getFranjasIniciales2(context,curso);
-        List FranjasFinales2 = new ArrayList<Fecha>();
-        FranjasFinales2 = FranjaHoraria.getFranjasFinales(context,curso);
-
-        if(spinEtapas.getSelectedItem().toString().equalsIgnoreCase("C.F.G.Superior") || spinEtapas.getSelectedItem().toString().equalsIgnoreCase("F.P.Basica") || spinEtapas.getSelectedItem().toString().equalsIgnoreCase("C.F.G.Medio")){
-            aSwitch.setText(FranjasIniciales3.get(0).toString()+"-"+FranjasFinales2.get(0).toString());
-            bSwitch.setText(FranjasIniciales3.get(1).toString()+"-"+FranjasFinales2.get(1).toString());
-            cSwitch.setText(FranjasIniciales3.get(2).toString()+"-"+FranjasFinales2.get(2).toString());
-            dSwitch.setText(FranjasIniciales3.get(3).toString()+"-"+FranjasFinales2.get(3).toString());
-            eSwitch.setText(FranjasIniciales3.get(4).toString()+"-"+FranjasFinales2.get(4).toString());
-            fSwitch.setText(FranjasIniciales3.get(5).toString()+"-"+FranjasFinales2.get(5).toString());
-            gSwitch.setText(FranjasIniciales3.get(6).toString()+"-"+FranjasFinales2.get(6).toString());
-            hSwitch.setText("Extra");
-            iSwitch.setText("Extra");
-            hSwitch.setEnabled(false);
-            iSwitch.setEnabled(false);
-
-        }
-    }
-
 }
