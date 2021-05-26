@@ -47,6 +47,7 @@ public class Curso {
         );
         if(cursorConsulta.moveToNext()){
             this.siglas = cursorConsulta.getString(cursorConsulta.getColumnIndexOrThrow(FeedReaderContract.TablaCursos.COLUMN_NAME_Siglas_Curso));
+            this.siglas = siglasCurso;
             this.nombre = cursorConsulta.getString(cursorConsulta.getColumnIndexOrThrow(FeedReaderContract.TablaCursos.COLUMN_NAME_Nombre));
             this.etapaEducativa.getEtapaEducativa(
                     context,

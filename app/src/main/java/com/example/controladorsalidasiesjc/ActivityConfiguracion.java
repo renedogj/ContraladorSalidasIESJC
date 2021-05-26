@@ -86,34 +86,18 @@ public class ActivityConfiguracion extends AppCompatActivity {
                 curso.getCurso(context,spinCursos.getSelectedItem().toString());
                 tvNombreCurso.setText(curso.nombre);
 
-                ArrayAdapter <String> adapterAlumnos = new ArrayAdapter<String>(context, R.layout.spinner_item_etapas_cursos,Alumno.getNombreAlumnosPorCurso(context, curso));
+                ArrayAdapter <String> adapterAlumnos = new ArrayAdapter<String>(context, R.layout.spinner_item_etapas_cursos, Alumno.getNombreAlumnosPorCurso(context, curso));
                 spinAlumnos.setAdapter(adapterAlumnos);
 
                 establecerFranjasPorCursoDiurno(spinCursos.getSelectedItem().toString());
                 establecerFranjasPorCursoVespertino(spinCursos.getSelectedItem().toString());
-
-
-
-
             }
-
-
-
-
-
-
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
 
             }
         });
-
-
-
-
-
-
 
         spinAlumnos.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -150,11 +134,6 @@ public class ActivityConfiguracion extends AppCompatActivity {
                 Toast.makeText(ActivityConfiguracion.this, "Se ha producido un error al seleccionar el dia de la semana", Toast.LENGTH_LONG).show();
             }
         });
-    }
-
-
-    public void estadoSwitches(){
-
     }
 
     public void establecerFranjasPorCursoDiurno(String curso){
