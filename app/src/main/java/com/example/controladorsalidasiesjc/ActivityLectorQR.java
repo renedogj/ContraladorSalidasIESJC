@@ -44,9 +44,9 @@ public class ActivityLectorQR extends AppCompatActivity {
         tvMotivo = findViewById(R.id.tvMotivo);
         activityLeerQR = findViewById(R.id.activityLeerQR);
 
-        //leerQR();
+        leerQR();
 
-        boolean puedeSalir = true;
+        /*boolean puedeSalir = true;
         String nombre = "Javier";
         if(puedeSalir){
             activityLeerQR.setBackgroundResource(R.color.verde_fondo);
@@ -57,7 +57,7 @@ public class ActivityLectorQR extends AppCompatActivity {
             activityLeerQR.setBackgroundResource(R.color.rojo_fondo);
             imageView.setBackgroundResource(R.drawable.error);
             tvResultado.setText("Lo siento " +nombre + " no puedes salir");
-        }
+        }*/
     }
 
     public void leerQR(){
