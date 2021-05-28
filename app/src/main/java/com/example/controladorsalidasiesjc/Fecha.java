@@ -5,7 +5,6 @@ import androidx.annotation.NonNull;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.IllegalFormatCodePointException;
 import java.util.Locale;
 import java.util.TimeZone;
 
@@ -20,16 +19,7 @@ public class Fecha {
 
     //CONSTRUCTORES
     //Constructor vacio
-    public Fecha() {
-    }
-
-    public void setHora(int hora) {
-        this.hora = hora;
-    }
-
-    public void setMinuto(int minuto) {
-        this.minuto = minuto;
-    }
+    public Fecha() {}
 
     /**
      * Constructor para inicializar con dia, mes y año
@@ -106,10 +96,10 @@ public class Fecha {
      *
      * @return
      */
-    public Fecha FechaActual() {
+    public static Fecha FechaActual() {
         long msTime = System.currentTimeMillis();
         Date curDateTime = new Date(msTime);
-        return new Fecha(curDateTime.getDay(), Meses.values()[curDateTime.getMonth()], curDateTime.getYear());
+        return new Fecha(curDateTime.getDay(), Meses.values()[curDateTime.getMonth()], curDateTime.getYear(),curDateTime.getHours(),curDateTime.getMinutes(),0);
     }
 
     public static String getDiaActual(){

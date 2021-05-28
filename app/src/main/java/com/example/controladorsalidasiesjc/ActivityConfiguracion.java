@@ -8,17 +8,13 @@ import android.content.Context;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
-import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ActivityConfiguracion extends AppCompatActivity {
@@ -30,27 +26,12 @@ public class ActivityConfiguracion extends AppCompatActivity {
     private Spinner spinDiasSemana;
     private TextView tvNombreCurso;
     private EditText etEdadMinima;
-    private Switch aSwitch;
-    private Switch bSwitch;
-    private Switch cSwitch;
-    private Switch dSwitch;
-    private Switch eSwitch;
-    private Switch fSwitch;
-    private Switch gSwitch;
-    private Switch hSwitch;
-    private Switch iSwitch;
 
     private RecyclerView recyclerView;
-    private Switch switchFranjaHoraria;
-    List<String> listSwich;
     List listFranjasHorarias;
-    List listIDFranjasHorarias;
-    List listRelacioneSFranjasCursos;
 
 
     EtapaEducativa etapaEducativa = new EtapaEducativa();
-    Alumno alumnos = new Alumno();
-    FranjaHoraria franjas = new FranjaHoraria();
     Curso curso = new Curso();
     String diaSemanaSelect;
 
@@ -69,7 +50,6 @@ public class ActivityConfiguracion extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        switchFranjaHoraria = findViewById(R.id.switchAdapter);
 
         ArrayAdapter <String> adapterEtapas = new ArrayAdapter<String>(context, R.layout.spinner_item_etapas_cursos,EtapaEducativa.getNombreEtapaEducativas(this));
         spinEtapas.setAdapter(adapterEtapas);
@@ -84,7 +64,7 @@ public class ActivityConfiguracion extends AppCompatActivity {
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-
+                Toast.makeText(ActivityConfiguracion.this, "Se ha producido un error al seleccionar la etapa", Toast.LENGTH_LONG).show();
             }
         });
 
@@ -106,7 +86,7 @@ public class ActivityConfiguracion extends AppCompatActivity {
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-
+                Toast.makeText(ActivityConfiguracion.this, "Se ha producido un error al seleccionar el curso", Toast.LENGTH_LONG).show();
             }
         });
 
@@ -144,8 +124,6 @@ public class ActivityConfiguracion extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 diaSemanaSelect = spinDiasSemana.getSelectedItem().toString();
                 listFranjasHorarias = FranjaHoraria.getFranjasDiaSemana(context,diaSemanaSelect);
-                //listIDFranjasHorarias = FranjaHoraria.getIDFranjasDiaSemana(context,diaSemanaSelect);
-                //listRelacioneSFranjasCursos = RelacionFranjasCursos.getRelacionesFranjasCursos(context,diaSemanaSelect);
 
                 SwichAdapter adapter = new SwichAdapter(listFranjasHorarias,curso,context);
                 recyclerView.setAdapter(adapter);

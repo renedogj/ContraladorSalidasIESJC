@@ -140,8 +140,8 @@ public class FranjaHoraria {
                 FeedReaderContract.TablaFranjasHorarias.COLUMN_NAME_Hora_Inicio,
                 FeedReaderContract.TablaFranjasHorarias.COLUMN_NAME_Minuto_Inicio,
                 FeedReaderContract.TablaFranjasHorarias.COLUMN_NAME_Hora_Final,
-                FeedReaderContract.TablaFranjasHorarias.COLUMN_NAME_Minuto_Final };
-
+                FeedReaderContract.TablaFranjasHorarias.COLUMN_NAME_Minuto_Final
+        };
         String columnaWhere = FeedReaderContract.TablaFranjasHorarias.COLUMN_NAME_ID_Franja_Horaria + " IN (SELECT "+
                 FeedReaderContract.TablaFranjasHorarias.COLUMN_NAME_ID_Franja_Horaria + " FROM " +
                 FeedReaderContract.TablaFranjasHorariasCursosPermitidos.TABLE_NAME + " WHERE " +

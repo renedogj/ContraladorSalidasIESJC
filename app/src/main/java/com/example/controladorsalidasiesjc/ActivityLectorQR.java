@@ -8,9 +8,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.os.Handler;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
@@ -25,6 +25,11 @@ public class ActivityLectorQR extends AppCompatActivity {
     private ImageView imageView;
     private TextView tvResultado;
     private TextView tvMotivo;
+    private String motivo = "No puedes salir";
+
+    //Handler handler = new Handler();
+    //private final int TIEMPO = 5000;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +45,11 @@ public class ActivityLectorQR extends AppCompatActivity {
     }
 
     public void leerQR(){
+        /*try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }*/
         new IntentIntegrator(this).setCameraId(1).initiateScan();
     }
 
@@ -47,46 +57,56 @@ public class ActivityLectorQR extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        IntentResult result = IntentIntegrator.parseActivityResult(requestCode,resultCode,data);
+        if(data != null){
+            IntentResult result = IntentIntegrator.parseActivityResult(requestCode,resultCode,data);
 
-        int NIA = Integer.parseInt(result.getContents());
-        Toast.makeText(this,NIA,Toast.LENGTH_SHORT).show();
-        String nombre = Alumno.getNombreAlumno(context,NIA);
+            int NIA = Integer.parseInt(result.getContents());
+            String nombre = Alumno.getNombreAlumno(context,NIA);
 
-        if (permisoParaSalir(NIA)){
-            activityLeerQR.setBackgroundResource(R.color.verde_fondo);
-            imageView.setBackgroundResource(R.drawable.exito);
-            tvResultado.setText("Tienes permiso para salir " +nombre);
-        }else{
-            activityLeerQR.setBackgroundResource(R.color.rojo_fondo);
-            imageView.setBackgroundResource(R.drawable.error);
-            tvResultado.setText("Lo siento " +nombre + " no puedes salir");
+            if (permisoParaSalir(NIA)){
+                activityLeerQR.setBackgroundResource(R.color.verde_fondo);
+                imageView.setBackgroundResource(R.drawable.exito);
+                tvResultado.setText("Tienes permiso para salir " +nombre);
+            }else{
+                activityLeerQR.setBackgroundResource(R.color.rojo_fondo);
+                imageView.setBackgroundResource(R.drawable.error);
+                tvResultado.setText("Lo siento " +nombre + " no puedes salir");
+                tvMotivo.setText(motivo);
+            }
+
+            FeedReaderDbHelper dbHelper = new FeedReaderDbHelper(context);
+            SQLiteDatabase db = dbHelper.getWritableDatabase();
+            db.execSQL(FeedReaderContract.TablaRegistroSalida.SQL_DELETE_WEEKLY);
+
+            /*handler.postDelayed(new Runnable() {
+                public void run() {
+                    handler.postDelayed(this, TIEMPO);
+                    //leerQR();
+                }
+            }/*, TIEMPO)*/;
+            //leerQR();
         }
-
-        FeedReaderDbHelper dbHelper = new FeedReaderDbHelper(context);
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
-        db.execSQL(FeedReaderContract.TablaRegistroSalida.SQL_DELETE_WEEKLY);
     }
 
     public boolean permisoParaSalir(int NIA){
         String dia = Fecha.getDiaActual();
-        //Fecha fecha = new Fecha(Integer.parseInt(hora_actual()),Integer.parseInt(minuto_actual()));
-        int hora = Integer.parseInt(Fecha.getHoraActual());
-        int minuto = Integer.parseInt(Fecha.getMinutoActual());
-        String siglasCurso = Alumno.getCursoAlumno(context, NIA);
+        Fecha fechaActual = Fecha.FechaActual();
+        Alumno alumno = new Alumno();
+        alumno.getAlumno(context,NIA);
         boolean salir = false;
+        if(Fecha.diferenciaFechaMayorQueAños(fechaActual, alumno.fechaNacimiento,alumno.curso.numeroCurso)){
+            List<FranjaHoraria> FranjasPermitidas = FranjaHoraria.get_Franjas_Permitidas(this, alumno.curso.siglas, dia);
 
-        List<FranjaHoraria> FranjasPermitidas = FranjaHoraria.get_Franjas_Permitidas(this, siglasCurso, dia);
-
-        for (int i=0;i<FranjasPermitidas.size();i++) {
-            FranjaHoraria franja = FranjasPermitidas.get(i);
-            /*if(fecha.isFechaEntreDosfechas(franja.horaInicio,franja.horaFinal)){
-                salir = true;
-            }*/
-            if (franja.horaInicio.hora >= hora) {
-                if (franja.horaInicio.minuto < minuto)
+            for (int i=0;i<FranjasPermitidas.size();i++) {
+                FranjaHoraria franja = FranjasPermitidas.get(i);
+                if(fechaActual.isFechaEntreDosfechas(franja.horaInicio,franja.horaFinal)){
                     salir = true;
+                }else{
+                    motivo = "No puedes salir en esta franja horaria";
+                }
             }
+        }else{
+            motivo = "No tienes edad suficiente para salir";
         }
         if(salir){
             addRegistroSalida(context,NIA);

@@ -81,12 +81,13 @@ public class Curso {
         );
         List cursos = new ArrayList<Curso>();
         while(cursorConsulta.moveToNext()){
-            Curso curso = new Curso();
-            curso.siglas = cursorConsulta.getString(cursorConsulta.getColumnIndexOrThrow(FeedReaderContract.TablaCursos.COLUMN_NAME_Siglas_Curso));
-            curso.nombre = cursorConsulta.getString(cursorConsulta.getColumnIndexOrThrow(FeedReaderContract.TablaCursos.COLUMN_NAME_Nombre));
-            curso.etapaEducativa = etapaEducativa;
-            curso.numeroCurso = cursorConsulta.getInt(cursorConsulta.getColumnIndexOrThrow(FeedReaderContract.TablaCursos.COLUMN_NAME_Numero_Curso));
-            curso.grupo = cursorConsulta.getString(cursorConsulta.getColumnIndexOrThrow(FeedReaderContract.TablaCursos.COLUMN_NAME_Grupo));
+            Curso curso = new Curso(
+                cursorConsulta.getString(cursorConsulta.getColumnIndexOrThrow(FeedReaderContract.TablaCursos.COLUMN_NAME_Siglas_Curso)),
+                cursorConsulta.getString(cursorConsulta.getColumnIndexOrThrow(FeedReaderContract.TablaCursos.COLUMN_NAME_Nombre)),
+                etapaEducativa,
+                cursorConsulta.getInt(cursorConsulta.getColumnIndexOrThrow(FeedReaderContract.TablaCursos.COLUMN_NAME_Numero_Curso)),
+                cursorConsulta.getString(cursorConsulta.getColumnIndexOrThrow(FeedReaderContract.TablaCursos.COLUMN_NAME_Grupo))
+            );
             cursos.add(curso);
         }
         cursorConsulta.close();
@@ -117,5 +118,33 @@ public class Curso {
         }
         cursorConsulta.close();
         return siglasCursos;
+    }
+
+    public int getEdadMinimaCurso(Context context){
+        FeedReaderDbHelper dbHelper = new FeedReaderDbHelper(context);
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        String[] columnasARetornar = {
+                FeedReaderContract.TablaEtapasEducativas.COLUMN_NAME_Edad_minima_salir
+        };
+        String columnaWhere = FeedReaderContract.TablaEtapasEducativas.COLUMN_NAME_ID_Etapa + " in (SELECT "+
+                FeedReaderContract.TablaCursos.COLUMN_NAME_ID_Etapa + " FROM " +
+                FeedReaderContract.TablaCursos.TABLE_NAME + " WHERE " +
+                FeedReaderContract.TablaCursos.COLUMN_NAME_Siglas_Curso + " = ? )";
+        Cursor cursorConsulta = db.query(
+                FeedReaderContract.TablaFranjasHorarias.TABLE_NAME,
+                columnasARetornar,
+                columnaWhere,
+                new String[]{this.siglas},
+                null,
+                null,
+                null
+        );
+
+        int edad = 0;
+        if(cursorConsulta.moveToNext()){
+            edad = cursorConsulta.getInt(cursorConsulta.getColumnIndexOrThrow(FeedReaderContract.TablaEtapasEducativas.COLUMN_NAME_Edad_minima_salir));
+        }
+        cursorConsulta.close();
+        return edad;
     }
 }

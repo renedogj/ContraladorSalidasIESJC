@@ -24,9 +24,7 @@ public class Alumno {
         this.curso = curso;
     }
 
-    public Alumno(){
-
-    };
+    public Alumno(){};
 
     public void getAlumno(Context context, int NIA){
         FeedReaderDbHelper dbHelper = new FeedReaderDbHelper(context);
@@ -59,7 +57,7 @@ public class Alumno {
             this.segundoApellido = cursorConsulta.getString(cursorConsulta.getColumnIndexOrThrow(FeedReaderContract.TablaAlumnos.COLUMN_NAME_Segundo_Apellido));
             this.fechaNacimiento = new Fecha(
                     cursorConsulta.getInt(cursorConsulta.getColumnIndexOrThrow(FeedReaderContract.TablaAlumnos.COLUMN_NAME_Dia_Nacimiento)),
-                    Meses.values()[cursorConsulta.getInt(cursorConsulta.getColumnIndexOrThrow(FeedReaderContract.TablaAlumnos.COLUMN_NAME_Mes_Nacimiento))],
+                    Meses.values()[cursorConsulta.getInt(cursorConsulta.getColumnIndexOrThrow(FeedReaderContract.TablaAlumnos.COLUMN_NAME_Mes_Nacimiento))-1],
                     cursorConsulta.getInt(cursorConsulta.getColumnIndexOrThrow(FeedReaderContract.TablaAlumnos.COLUMN_NAME_Año_Nacimiento))
             );
             this.curso.getCurso(

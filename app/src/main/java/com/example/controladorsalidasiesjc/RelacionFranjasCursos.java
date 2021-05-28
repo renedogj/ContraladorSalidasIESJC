@@ -65,7 +65,6 @@ public class RelacionFranjasCursos {
         };
         String columnaWhere = FeedReaderContract.TablaFranjasHorariasCursosPermitidos.COLUMN_NAME_ID_Franja_Horaria + " = " + franjaHoraria.ID +
                 " AND " + FeedReaderContract.TablaFranjasHorariasCursosPermitidos.COLUMN_NAME_Siglas_Curso + " = '" + curso.siglas+"'";
-        //String[] valorWhere = { diaSemana };
         Cursor cursorConsulta = db.query(
                 FeedReaderContract.TablaFranjasHorariasCursosPermitidos.TABLE_NAME,
                 columnasARetornar,
