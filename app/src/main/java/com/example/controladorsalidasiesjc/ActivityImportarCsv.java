@@ -24,11 +24,14 @@ import java.util.Objects;
 
 public class ActivityImportarCsv extends AppCompatActivity {
 
+    public static final int ACTIVITY_IMPORTAR_CSV = 2;
+
     public static final int requestCodeAlumnos = 0;
     public static final int requestCodeCursos = 1;
     public static final int requestCodeEtapas = 3;
     public static final int requestCodeFranjasHorarias = 4;
     public static final int requestCodeRelacionFranjasCursos = 5;
+
     Context context = ActivityImportarCsv.this;
 
     private Button bttnImportarAlumnos;
@@ -201,18 +204,7 @@ public class ActivityImportarCsv extends AppCompatActivity {
                     break;
                 case requestCodeRelacionFranjasCursos:
                     limpiarTablas(FeedReaderContract.TablaFranjasHorariasCursosPermitidos.TABLE_NAME);
-                    /*while ((cadena = bufferedReader.readLine()) != null) {
-
-                        array = cadena.split(";");
-
-                        ContentValues registro = new ContentValues();
-                        registro.put(FeedReaderContract.TablaFranjasHorariasCursosPermitidos.COLUMN_NAME_Relacion_FC, array[0]);
-                        registro.put(FeedReaderContract.TablaFranjasHorariasCursosPermitidos.COLUMN_NAME_ID_Franja_Horaria, array[1]);
-                        registro.put(FeedReaderContract.TablaFranjasHorariasCursosPermitidos.COLUMN_NAME_Siglas_Curso, array[2]);
-
-                        db.insert(FeedReaderContract.TablaFranjasHorariasCursosPermitidos.TABLE_NAME, null, registro);
-                    }*/
-                    Toast.makeText(this, "Relación de franjas horarias importadas correctamente", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "Relaciones Franja-Curso borradas correctamente", Toast.LENGTH_SHORT).show();
                     break;
             }
             db.close();

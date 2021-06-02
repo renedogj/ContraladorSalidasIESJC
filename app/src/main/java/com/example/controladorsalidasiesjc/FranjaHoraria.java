@@ -13,7 +13,8 @@ public class FranjaHoraria {
     public Fecha horaInicio;
     public Fecha horaFinal;
 
-    public FranjaHoraria(){}
+    public FranjaHoraria() {
+    }
 
     public FranjaHoraria(int ID, String diaSemana, Fecha horaInicio, Fecha horaFinal) {
         this.ID = ID;
@@ -39,7 +40,7 @@ public class FranjaHoraria {
                 FeedReaderContract.TablaFranjasHorarias.COLUMN_NAME_Minuto_Final
         };
         String columnaWhere = FeedReaderContract.TablaFranjasHorarias.COLUMN_NAME_Dia_semana + " = ?";
-        String[] valorWhere = { diaSemana + "" };
+        String[] valorWhere = {diaSemana + ""};
         Cursor cursorConsulta = db.query(
                 FeedReaderContract.TablaFranjasHorarias.TABLE_NAME,
                 columnasARetornar,
@@ -50,18 +51,19 @@ public class FranjaHoraria {
                 null
         );
         List FranjasHorarias = new ArrayList<FranjaHoraria>();
-        while(cursorConsulta.moveToNext()){
+        while (cursorConsulta.moveToNext()) {
             FranjasHorarias.add(new FranjaHoraria(
-            cursorConsulta.getInt(cursorConsulta.getColumnIndexOrThrow(FeedReaderContract.TablaFranjasHorarias.COLUMN_NAME_ID_Franja_Horaria)),
-            cursorConsulta.getString(cursorConsulta.getColumnIndexOrThrow(FeedReaderContract.TablaFranjasHorarias.COLUMN_NAME_Dia_semana)),
-            new Fecha(
-                    cursorConsulta.getInt(cursorConsulta.getColumnIndexOrThrow(FeedReaderContract.TablaFranjasHorarias.COLUMN_NAME_Hora_Inicio)),
-                    cursorConsulta.getInt(cursorConsulta.getColumnIndexOrThrow(FeedReaderContract.TablaFranjasHorarias.COLUMN_NAME_Minuto_Inicio))
-            ),
-            new Fecha(
-                    cursorConsulta.getInt(cursorConsulta.getColumnIndexOrThrow(FeedReaderContract.TablaFranjasHorarias.COLUMN_NAME_Hora_Final)),
-                    cursorConsulta.getInt(cursorConsulta.getColumnIndexOrThrow(FeedReaderContract.TablaFranjasHorarias.COLUMN_NAME_Minuto_Final))
-            )));
+                    cursorConsulta.getInt(cursorConsulta.getColumnIndexOrThrow(FeedReaderContract.TablaFranjasHorarias.COLUMN_NAME_ID_Franja_Horaria)),
+                    cursorConsulta.getString(cursorConsulta.getColumnIndexOrThrow(FeedReaderContract.TablaFranjasHorarias.COLUMN_NAME_Dia_semana)),
+                    new Fecha(
+                            cursorConsulta.getInt(cursorConsulta.getColumnIndexOrThrow(FeedReaderContract.TablaFranjasHorarias.COLUMN_NAME_Hora_Inicio)),
+                            cursorConsulta.getInt(cursorConsulta.getColumnIndexOrThrow(FeedReaderContract.TablaFranjasHorarias.COLUMN_NAME_Minuto_Inicio))
+                    ),
+                    new Fecha(
+                            cursorConsulta.getInt(cursorConsulta.getColumnIndexOrThrow(FeedReaderContract.TablaFranjasHorarias.COLUMN_NAME_Hora_Final)),
+                            cursorConsulta.getInt(cursorConsulta.getColumnIndexOrThrow(FeedReaderContract.TablaFranjasHorarias.COLUMN_NAME_Minuto_Final))
+                    )
+            ));
         }
         cursorConsulta.close();
         return FranjasHorarias;
@@ -74,7 +76,7 @@ public class FranjaHoraria {
                 FeedReaderContract.TablaFranjasHorarias.COLUMN_NAME_ID_Franja_Horaria
         };
         String columnaWhere = FeedReaderContract.TablaFranjasHorarias.COLUMN_NAME_Dia_semana + " = ?";
-        String[] valorWhere = { diaSemana + "" };
+        String[] valorWhere = {diaSemana + ""};
         Cursor cursorConsulta = db.query(
                 FeedReaderContract.TablaFranjasHorarias.TABLE_NAME,
                 columnasARetornar,
@@ -85,16 +87,16 @@ public class FranjaHoraria {
                 null
         );
         List IdFranjasHorarias = new ArrayList<String>();
-        while(cursorConsulta.moveToNext()){
+        while (cursorConsulta.moveToNext()) {
             IdFranjasHorarias.add(
-                    cursorConsulta.getInt(cursorConsulta.getColumnIndexOrThrow(FeedReaderContract.TablaFranjasHorarias.COLUMN_NAME_ID_Franja_Horaria))+""
-                    );
+                    cursorConsulta.getInt(cursorConsulta.getColumnIndexOrThrow(FeedReaderContract.TablaFranjasHorarias.COLUMN_NAME_ID_Franja_Horaria)) + ""
+            );
         }
         cursorConsulta.close();
         return IdFranjasHorarias;
     }
 
-    public void getFranjaHoraria(Context context, int ID_franjaHoraria){
+    public void getFranjaHoraria(Context context, int ID_franjaHoraria) {
         FeedReaderDbHelper dbHelper = new FeedReaderDbHelper(context);
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         String[] columnasARetornar = {
@@ -106,7 +108,7 @@ public class FranjaHoraria {
                 FeedReaderContract.TablaFranjasHorarias.COLUMN_NAME_Minuto_Final
         };
         String columnaWhere = FeedReaderContract.TablaFranjasHorarias.COLUMN_NAME_ID_Franja_Horaria + " = ?";
-        String[] valorWhere = { ID_franjaHoraria + "" };
+        String[] valorWhere = {ID_franjaHoraria + ""};
         Cursor cursorConsulta = db.query(
                 FeedReaderContract.TablaEtapasEducativas.TABLE_NAME,
                 columnasARetornar,
@@ -116,7 +118,7 @@ public class FranjaHoraria {
                 null,
                 null
         );
-        if(cursorConsulta.moveToNext()){
+        if (cursorConsulta.moveToNext()) {
             this.ID = cursorConsulta.getInt(cursorConsulta.getColumnIndexOrThrow(FeedReaderContract.TablaFranjasHorarias.COLUMN_NAME_ID_Franja_Horaria));
             this.diaSemana = cursorConsulta.getString(cursorConsulta.getColumnIndexOrThrow(FeedReaderContract.TablaFranjasHorarias.COLUMN_NAME_Dia_semana));
             this.horaInicio = new Fecha(
@@ -131,7 +133,7 @@ public class FranjaHoraria {
         cursorConsulta.close();
     }
 
-    public static List get_Franjas_Permitidas(Context context,String siglas, String dia){
+    public static List get_Franjas_Permitidas(Context context, String siglas, String dia) {
         FeedReaderDbHelper dbHelper = new FeedReaderDbHelper(context);
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         String[] columnasARetornar = {
@@ -142,11 +144,11 @@ public class FranjaHoraria {
                 FeedReaderContract.TablaFranjasHorarias.COLUMN_NAME_Hora_Final,
                 FeedReaderContract.TablaFranjasHorarias.COLUMN_NAME_Minuto_Final
         };
-        String columnaWhere = FeedReaderContract.TablaFranjasHorarias.COLUMN_NAME_ID_Franja_Horaria + " IN (SELECT "+
+        String columnaWhere = FeedReaderContract.TablaFranjasHorarias.COLUMN_NAME_ID_Franja_Horaria + " IN (SELECT " +
                 FeedReaderContract.TablaFranjasHorarias.COLUMN_NAME_ID_Franja_Horaria + " FROM " +
                 FeedReaderContract.TablaFranjasHorariasCursosPermitidos.TABLE_NAME + " WHERE " +
-                FeedReaderContract.TablaFranjasHorariasCursosPermitidos.COLUMN_NAME_Siglas_Curso + " = ? "+") AND " +
-                FeedReaderContract.TablaFranjasHorarias.COLUMN_NAME_Dia_semana + " = '" + dia +  "'";
+                FeedReaderContract.TablaFranjasHorariasCursosPermitidos.COLUMN_NAME_Siglas_Curso + " = ? " + ") AND " +
+                FeedReaderContract.TablaFranjasHorarias.COLUMN_NAME_Dia_semana + " = '" + dia + "'";
         Cursor cursorConsulta = db.query(
                 FeedReaderContract.TablaFranjasHorarias.TABLE_NAME,
                 columnasARetornar,
@@ -158,7 +160,7 @@ public class FranjaHoraria {
         );
 
         List FranjasPermitidas = new ArrayList<FranjaHoraria>();
-        while(cursorConsulta.moveToNext()){
+        while (cursorConsulta.moveToNext()) {
             FranjaHoraria franja = new FranjaHoraria(
                     cursorConsulta.getInt(cursorConsulta.getColumnIndexOrThrow(FeedReaderContract.TablaFranjasHorarias.COLUMN_NAME_ID_Franja_Horaria)),
                     cursorConsulta.getString(cursorConsulta.getColumnIndexOrThrow(FeedReaderContract.TablaFranjasHorarias.COLUMN_NAME_Dia_semana)),

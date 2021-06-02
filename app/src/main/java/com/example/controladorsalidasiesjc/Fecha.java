@@ -137,7 +137,6 @@ public class Fecha {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-dd-MM", esLocale);
         Date date = new Date();
         String fecha = dateFormat.format(date);
-
         return fecha;
     }
 

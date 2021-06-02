@@ -8,7 +8,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.os.Handler;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -22,34 +21,22 @@ public class ActivityLectorQR extends AppCompatActivity {
     Context context = ActivityLectorQR.this;
     androidx.constraintlayout.widget.ConstraintLayout activityLeerQR;
 
-    private ImageView imageView;
-    private TextView tvResultado;
-    private TextView tvMotivo;
     private String motivo = "No puedes salir";
-
-    //Handler handler = new Handler();
-    //private final int TIEMPO = 5000;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lector_qr);
 
-        imageView = findViewById(R.id.imageView);
-        tvResultado = findViewById(R.id.tvResultado);
-        tvMotivo = findViewById(R.id.tvMotivo);
-        activityLeerQR = findViewById(R.id.activityLeerQR);
+        try {
+            Thread.sleep(2500);
+        } catch (InterruptedException exception) {
 
+        }
         leerQR();
     }
 
     public void leerQR(){
-        /*try {
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }*/
         new IntentIntegrator(this).setCameraId(1).initiateScan();
     }
 
@@ -62,29 +49,14 @@ public class ActivityLectorQR extends AppCompatActivity {
 
             int NIA = Integer.parseInt(result.getContents());
             String nombre = Alumno.getNombreAlumno(context,NIA);
+            boolean puedeSalir = permisoParaSalir(NIA);
 
-            if (permisoParaSalir(NIA)){
-                activityLeerQR.setBackgroundResource(R.color.verde_fondo);
-                imageView.setBackgroundResource(R.drawable.exito);
-                tvResultado.setText("Tienes permiso para salir " +nombre);
-            }else{
-                activityLeerQR.setBackgroundResource(R.color.rojo_fondo);
-                imageView.setBackgroundResource(R.drawable.error);
-                tvResultado.setText("Lo siento " +nombre + " no puedes salir");
-                tvMotivo.setText(motivo);
-            }
+            Intent intent = new Intent(this,ActivityMostrarResultado.class);
 
-            FeedReaderDbHelper dbHelper = new FeedReaderDbHelper(context);
-            SQLiteDatabase db = dbHelper.getWritableDatabase();
-            db.execSQL(FeedReaderContract.TablaRegistroSalida.SQL_DELETE_WEEKLY);
-
-            /*handler.postDelayed(new Runnable() {
-                public void run() {
-                    handler.postDelayed(this, TIEMPO);
-                    //leerQR();
-                }
-            }/*, TIEMPO)*/;
-            //leerQR();
+            intent.putExtra("puedeSalir",puedeSalir);
+            intent.putExtra("nombre",nombre);
+            intent.putExtra("motivo",motivo);
+            startActivity(intent);
         }
     }
 
@@ -100,7 +72,12 @@ public class ActivityLectorQR extends AppCompatActivity {
             for (int i=0;i<FranjasPermitidas.size();i++) {
                 FranjaHoraria franja = FranjasPermitidas.get(i);
                 if(fechaActual.isFechaEntreDosfechas(franja.horaInicio,franja.horaFinal)){
-                    salir = true;
+                    if(RegistroSalida.existeRegistroSalidaNiaIDFranja(context,NIA,franja.ID)){
+                        motivo = "Ya has salido en esta franja horaria";
+                    }else{
+                        salir = true;
+                        addRegistroSalida(context,NIA,franja.ID);
+                    }
                 }else{
                     motivo = "No puedes salir en esta franja horaria";
                 }
@@ -108,18 +85,16 @@ public class ActivityLectorQR extends AppCompatActivity {
         }else{
             motivo = "No tienes edad suficiente para salir";
         }
-        if(salir){
-            addRegistroSalida(context,NIA);
-        }
         return salir;
     }
 
-    public static void addRegistroSalida(Context context,int NIA){
+    public static void addRegistroSalida(Context context,int NIA,int IDFranja){
         FeedReaderDbHelper dbHelper = new FeedReaderDbHelper(context);
         SQLiteDatabase db = dbHelper.getWritableDatabase();
 
         ContentValues registro = new ContentValues();
         registro.put(FeedReaderContract.TablaRegistroSalida.COLUMN_NAME_NIA, NIA);
+        registro.put(FeedReaderContract.TablaRegistroSalida.COLUMN_NAME_ID_Franja_Horaria, IDFranja);
         registro.put(FeedReaderContract.TablaRegistroSalida.COLUMN_NAME_FECHA_SALIDA, Fecha.getFechaActual());
 
         db.insert(FeedReaderContract.TablaRegistroSalida.TABLE_NAME, null, registro);

@@ -19,6 +19,8 @@ import java.util.List;
 
 public class ActivityConfiguracion extends AppCompatActivity {
 
+    public static final int ACTIVITY_CONFIGURACION = 1;
+
     Context context = ActivityConfiguracion.this;
     private Spinner spinEtapas;
     private Spinner spinCursos;
