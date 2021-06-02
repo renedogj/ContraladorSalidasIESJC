@@ -133,7 +133,7 @@ public class FranjaHoraria {
         cursorConsulta.close();
     }
 
-    public static List get_Franjas_Permitidas(Context context, String siglas, String dia) {
+    public static List get_Franjas_Permitidas(Context context, String siglas, String dia,String alumno) {
         FeedReaderDbHelper dbHelper = new FeedReaderDbHelper(context);
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         String[] columnasARetornar = {
@@ -147,13 +147,14 @@ public class FranjaHoraria {
         String columnaWhere = FeedReaderContract.TablaFranjasHorarias.COLUMN_NAME_ID_Franja_Horaria + " IN (SELECT " +
                 FeedReaderContract.TablaFranjasHorarias.COLUMN_NAME_ID_Franja_Horaria + " FROM " +
                 FeedReaderContract.TablaFranjasHorariasCursosPermitidos.TABLE_NAME + " WHERE " +
-                FeedReaderContract.TablaFranjasHorariasCursosPermitidos.COLUMN_NAME_Siglas_Curso + " = ? " + ") AND " +
+                FeedReaderContract.TablaFranjasHorariasCursosPermitidos.COLUMN_NAME_Siglas_Curso + " = '" + siglas + "') AND " +
+                FeedReaderContract.TablaFranjasHorariasCursosPermitidos.COLUMN_NAME_Alumno + " = ? " + ") AND " +
                 FeedReaderContract.TablaFranjasHorarias.COLUMN_NAME_Dia_semana + " = '" + dia + "'";
         Cursor cursorConsulta = db.query(
                 FeedReaderContract.TablaFranjasHorarias.TABLE_NAME,
                 columnasARetornar,
                 columnaWhere,
-                new String[]{siglas},
+                new String[]{alumno,"Todos"},
                 null,
                 null,
                 null

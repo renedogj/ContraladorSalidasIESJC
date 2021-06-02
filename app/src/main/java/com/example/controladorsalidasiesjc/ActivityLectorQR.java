@@ -65,7 +65,7 @@ public class ActivityLectorQR extends AppCompatActivity {
         alumno.getAlumno(context,NIA);
         boolean salir = false;
         if(Fecha.diferenciaFechaMayorQueAños(fechaActual, alumno.fechaNacimiento,alumno.curso.numeroCurso)){
-            List<FranjaHoraria> FranjasPermitidas = FranjaHoraria.get_Franjas_Permitidas(this, alumno.curso.siglas, dia);
+            List<FranjaHoraria> FranjasPermitidas = FranjaHoraria.get_Franjas_Permitidas(this, alumno.curso.siglas, dia,alumno.nombre);
 
             for (int i=0;i<FranjasPermitidas.size();i++) {
                 FranjaHoraria franja = FranjasPermitidas.get(i);

@@ -80,10 +80,6 @@ public class ActivityConfiguracion extends AppCompatActivity {
                 nombreAlumnosPorCurso.add(0,"Todos");
                 ArrayAdapter <String> adapterAlumnos = new ArrayAdapter<String>(context, R.layout.spinner_item_etapas_cursos, nombreAlumnosPorCurso);
                 spinAlumnos.setAdapter(adapterAlumnos);
-
-                listFranjasHorarias = FranjaHoraria.getFranjasDiaSemana(context,diaSemanaSelect);
-                SwichAdapter adapter = new SwichAdapter(listFranjasHorarias,curso,context);
-                recyclerView.setAdapter(adapter);
             }
 
             @Override
@@ -95,12 +91,34 @@ public class ActivityConfiguracion extends AppCompatActivity {
         spinAlumnos.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                listFranjasHorarias = FranjaHoraria.getFranjasDiaSemana(context,diaSemanaSelect);
+                SwichAdapter adapter = new SwichAdapter(listFranjasHorarias,curso,context,spinAlumnos.getSelectedItem().toString());
+                recyclerView.setAdapter(adapter);
 
+                String diasSemana[] = {"Lunes","Martes","Miercoles","Jueves","Viernes"};
+                ArrayAdapter <String> adapterSpinDiasSemana = new ArrayAdapter<String>(context, R.layout.spinner_item_etapas_cursos, diasSemana);
+                spinDiasSemana.setAdapter(adapterSpinDiasSemana);
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
 
+            }
+        });
+
+        spinDiasSemana.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                diaSemanaSelect = spinDiasSemana.getSelectedItem().toString();
+
+                listFranjasHorarias = FranjaHoraria.getFranjasDiaSemana(context,diaSemanaSelect);
+                SwichAdapter adapter = new SwichAdapter(listFranjasHorarias,curso,context,spinAlumnos.getSelectedItem().toString());
+                recyclerView.setAdapter(adapter);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                Toast.makeText(ActivityConfiguracion.this, "Se ha producido un error al seleccionar el dia de la semana", Toast.LENGTH_LONG).show();
             }
         });
 
@@ -115,25 +133,6 @@ public class ActivityConfiguracion extends AppCompatActivity {
                     etapaEducativa.actualizarEdadMinima(context,Integer.parseInt(edad));
                 }
                 return false;
-            }
-        });
-
-        String diasSemana[] = {"Lunes","Martes","Miercoles","Jueves","Viernes"};
-        ArrayAdapter <String> adapterSpinDiasSemana = new ArrayAdapter<String>(this, R.layout.spinner_item_etapas_cursos, diasSemana);
-        spinDiasSemana.setAdapter(adapterSpinDiasSemana);
-        spinDiasSemana.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                diaSemanaSelect = spinDiasSemana.getSelectedItem().toString();
-                listFranjasHorarias = FranjaHoraria.getFranjasDiaSemana(context,diaSemanaSelect);
-
-                SwichAdapter adapter = new SwichAdapter(listFranjasHorarias,curso,context);
-                recyclerView.setAdapter(adapter);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                Toast.makeText(ActivityConfiguracion.this, "Se ha producido un error al seleccionar el dia de la semana", Toast.LENGTH_LONG).show();
             }
         });
     }

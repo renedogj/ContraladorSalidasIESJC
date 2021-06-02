@@ -6,14 +6,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.Switch;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class SwichAdapter extends RecyclerView.Adapter<SwichAdapter.ViewHolderSwich>{
@@ -21,11 +19,13 @@ public class SwichAdapter extends RecyclerView.Adapter<SwichAdapter.ViewHolderSw
     List<FranjaHoraria> listSwich;
     Curso curso;
     Context context;
+    String alumno;
 
-    public SwichAdapter(List<FranjaHoraria> listSwich,Curso curso,Context context) {
+    public SwichAdapter(List<FranjaHoraria> listSwich,Curso curso,Context context, String alumno) {
         this.listSwich = listSwich;
         this.curso = curso;
         this.context = context;
+        this.alumno = alumno;
     }
 
     @NonNull
@@ -39,7 +39,7 @@ public class SwichAdapter extends RecyclerView.Adapter<SwichAdapter.ViewHolderSw
     @Override
     public void onBindViewHolder(@NonNull @NotNull SwichAdapter.ViewHolderSwich holder, int position) {
         FranjaHoraria franjaHoraria = listSwich.get(position);
-        holder.asignarSwitch(franjaHoraria,curso,context);
+        holder.asignarSwitch(franjaHoraria,curso,context,alumno);
     }
 
     @Override
@@ -53,6 +53,7 @@ public class SwichAdapter extends RecyclerView.Adapter<SwichAdapter.ViewHolderSw
         FranjaHoraria franjaHoraria;
         Curso curso;
         Context context;
+        String alumno;
 
         public ViewHolderSwich(@NonNull @NotNull View itemView) {
             super(itemView);
@@ -61,19 +62,20 @@ public class SwichAdapter extends RecyclerView.Adapter<SwichAdapter.ViewHolderSw
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                     if(isChecked){
-                        RelacionFranjasCursos.addRelacionFranjasCursos(context,franjaHoraria,curso);
+                        RelacionFranjasCursos.addRelacionFranjasCursos(context,franjaHoraria,curso,alumno);
                     }else{
-                        RelacionFranjasCursos.deleteRelacionFranjasCursos(context,franjaHoraria,curso);
+                        RelacionFranjasCursos.deleteRelacionFranjasCursos(context,franjaHoraria,curso,alumno);
                     }
                 }
             });
         }
 
-        public void asignarSwitch(FranjaHoraria franjaHoraria,Curso curso,Context context) {
+        public void asignarSwitch(FranjaHoraria franjaHoraria,Curso curso,Context context, String alumno) {
             this.franjaHoraria = franjaHoraria;
             this.switchAdapter.setText(franjaHoraria.horaInicio.toString() + "-" + franjaHoraria.horaFinal.toString());
             this.curso = curso;
             this.context = context;
+            this.alumno = alumno;
             if(RelacionFranjasCursos.getRelacionFranjasCursos(context,franjaHoraria,curso)){
                 this.switchAdapter.setChecked(true);
             }else{

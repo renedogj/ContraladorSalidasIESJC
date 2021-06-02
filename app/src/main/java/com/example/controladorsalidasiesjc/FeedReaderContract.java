@@ -65,12 +65,14 @@ public class FeedReaderContract {
         public static final String COLUMN_NAME_Relacion_FC = "Relacion_FC";
         public static final String COLUMN_NAME_ID_Franja_Horaria = TablaFranjasHorarias.COLUMN_NAME_ID_Franja_Horaria;
         public static final String COLUMN_NAME_Siglas_Curso = TablaCursos.COLUMN_NAME_Siglas_Curso;
+        public static final String COLUMN_NAME_Alumno = "Alumno";
 
         public static final String SQL_CREATE_ENTRIES =
                 "CREATE TABLE " + TABLE_NAME + " (" +
                         COLUMN_NAME_Relacion_FC + " INTEGER PRIMARY KEY," +
                         COLUMN_NAME_ID_Franja_Horaria + " INTERGER," +
-                        COLUMN_NAME_Siglas_Curso + " INTERGER)";
+                        COLUMN_NAME_Siglas_Curso + " TEXT," +
+                        COLUMN_NAME_Alumno + " TEXT)";
 
         public static final String SQL_DELETE_ENTRIES = "DROP TABLE IF EXISTS " + TABLE_NAME;
     }

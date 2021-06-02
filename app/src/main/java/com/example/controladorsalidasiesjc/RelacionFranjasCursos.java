@@ -12,6 +12,7 @@ public class RelacionFranjasCursos {
     public int ID;
     public int ID_franjaHoraria;
     public String siglasCurso;
+    public String alumno;
 
     public RelacionFranjasCursos(){}
 
@@ -82,24 +83,26 @@ public class RelacionFranjasCursos {
         return false;
     }
 
-    public static void addRelacionFranjasCursos(Context context,FranjaHoraria franjaHoraria, Curso curso){
+    public static void addRelacionFranjasCursos(Context context,FranjaHoraria franjaHoraria, Curso curso, String alumno){
         FeedReaderDbHelper dbHelper = new FeedReaderDbHelper(context);
         SQLiteDatabase db = dbHelper.getWritableDatabase();
 
         ContentValues registro = new ContentValues();
         registro.put(FeedReaderContract.TablaFranjasHorariasCursosPermitidos.COLUMN_NAME_ID_Franja_Horaria, franjaHoraria.ID);
         registro.put(FeedReaderContract.TablaFranjasHorariasCursosPermitidos.COLUMN_NAME_Siglas_Curso, curso.siglas);
+        registro.put(FeedReaderContract.TablaFranjasHorariasCursosPermitidos.COLUMN_NAME_Alumno, alumno);
 
         db.insert(FeedReaderContract.TablaFranjasHorariasCursosPermitidos.TABLE_NAME, null, registro);
         db.close();
     }
 
-    public static void deleteRelacionFranjasCursos(Context context,FranjaHoraria franjaHoraria, Curso curso){
+    public static void deleteRelacionFranjasCursos(Context context,FranjaHoraria franjaHoraria, Curso curso, String alumno){
         FeedReaderDbHelper dbHelper = new FeedReaderDbHelper(context);
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         String consulta = "DELETE FROM " + FeedReaderContract.TablaFranjasHorariasCursosPermitidos.TABLE_NAME +
                 " WHERE " + FeedReaderContract.TablaFranjasHorariasCursosPermitidos.COLUMN_NAME_ID_Franja_Horaria + " = " + franjaHoraria.ID +
-                " AND " + FeedReaderContract.TablaFranjasHorariasCursosPermitidos.COLUMN_NAME_Siglas_Curso + " = '" + curso.siglas + "'";
+                " AND " + FeedReaderContract.TablaFranjasHorariasCursosPermitidos.COLUMN_NAME_Siglas_Curso + " = '" + curso.siglas + "' AND " +
+                FeedReaderContract.TablaFranjasHorariasCursosPermitidos.COLUMN_NAME_Alumno + " = '" + alumno + "'";
         db.execSQL(consulta);
     }
 }
