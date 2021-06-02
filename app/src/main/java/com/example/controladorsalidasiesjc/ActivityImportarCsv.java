@@ -30,7 +30,6 @@ public class ActivityImportarCsv extends AppCompatActivity {
     public static final int requestCodeCursos = 1;
     public static final int requestCodeEtapas = 3;
     public static final int requestCodeFranjasHorarias = 4;
-    public static final int requestCodeRelacionFranjasCursos = 5;
 
     Context context = ActivityImportarCsv.this;
 
@@ -38,7 +37,7 @@ public class ActivityImportarCsv extends AppCompatActivity {
     private Button bttnImportarCursos;
     private Button bttnImportarEtapasEducativas;
     private Button bttnImportarFranjasHorarias;
-    private Button bttnImportarRelacionFranjasCursos;
+    private Button bttnRelacionFranjasCursos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +48,7 @@ public class ActivityImportarCsv extends AppCompatActivity {
         bttnImportarCursos = findViewById(R.id.bttnImportarCursos);
         bttnImportarEtapasEducativas = findViewById(R.id.bttnImportarEtapasEducativas);
         bttnImportarFranjasHorarias = findViewById(R.id.bttnImportarFranjasHorarias);
-        bttnImportarRelacionFranjasCursos = findViewById(R.id.bttnImportarRelacionFranjasCursos);
+        bttnRelacionFranjasCursos = findViewById(R.id.bttnRelacionFranjasCursos);
 
         pedirPermisos();
 
@@ -69,8 +68,9 @@ public class ActivityImportarCsv extends AppCompatActivity {
             iniciarIntentArchivos(requestCodeFranjasHorarias);
         });
 
-        bttnImportarRelacionFranjasCursos.setOnClickListener(v -> {
-            iniciarIntentArchivos(requestCodeRelacionFranjasCursos);
+        bttnRelacionFranjasCursos.setOnClickListener(v -> {
+            limpiarTablas(FeedReaderContract.TablaFranjasHorariasCursosPermitidos.TABLE_NAME);
+            Toast.makeText(this, "Relaciones Franja-Curso borradas correctamente", Toast.LENGTH_SHORT).show();
         });
     }
 
@@ -202,10 +202,6 @@ public class ActivityImportarCsv extends AppCompatActivity {
                     }
                     Toast.makeText(this, "Franjas horarias importadas correctamente", Toast.LENGTH_SHORT).show();
                     break;
-                case requestCodeRelacionFranjasCursos:
-                    limpiarTablas(FeedReaderContract.TablaFranjasHorariasCursosPermitidos.TABLE_NAME);
-                    Toast.makeText(this, "Relaciones Franja-Curso borradas correctamente", Toast.LENGTH_SHORT).show();
-                    break;
             }
             db.close();
         } catch (IOException e) {
@@ -228,5 +224,10 @@ public class ActivityImportarCsv extends AppCompatActivity {
                             {Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE},
                     0);
         }
+    }
+
+    @Override
+    public void onBackPressed(){
+        startActivity(new Intent(context, MainActivity.class));
     }
 }

@@ -8,8 +8,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
@@ -99,5 +97,10 @@ public class ActivityLectorQR extends AppCompatActivity {
 
         db.insert(FeedReaderContract.TablaRegistroSalida.TABLE_NAME, null, registro);
         db.close();
+    }
+
+    @Override
+    public void onBackPressed(){
+        startActivity(new Intent(context, MainActivity.class));
     }
 }
