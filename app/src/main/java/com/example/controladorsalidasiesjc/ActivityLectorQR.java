@@ -17,9 +17,8 @@ import java.util.List;
 public class ActivityLectorQR extends AppCompatActivity {
 
     Context context = ActivityLectorQR.this;
-    androidx.constraintlayout.widget.ConstraintLayout activityLeerQR;
 
-    private String motivo = "No puedes salir";
+    private String motivo = "Hoy no puedes salir";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +33,7 @@ public class ActivityLectorQR extends AppCompatActivity {
         leerQR();
     }
 
-    public void leerQR(){
+    public void leerQR() {
         new IntentIntegrator(this).setCameraId(1).initiateScan();
     }
 
@@ -42,51 +41,51 @@ public class ActivityLectorQR extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if(data != null){
-            IntentResult result = IntentIntegrator.parseActivityResult(requestCode,resultCode,data);
+        if (data != null) {
+            IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
 
             int NIA = Integer.parseInt(result.getContents());
-            String nombre = Alumno.getNombreAlumno(context,NIA);
+            String nombre = Alumno.getNombreAlumno(context, NIA);
             boolean puedeSalir = permisoParaSalir(NIA);
 
-            Intent intent = new Intent(this,ActivityMostrarResultado.class);
+            Intent intent = new Intent(this, ActivityMostrarResultado.class);
 
-            intent.putExtra("puedeSalir",puedeSalir);
-            intent.putExtra("nombre",nombre);
-            intent.putExtra("motivo",motivo);
+            intent.putExtra("puedeSalir", puedeSalir);
+            intent.putExtra("nombre", nombre);
+            intent.putExtra("motivo", motivo);
             startActivity(intent);
         }
     }
 
-    public boolean permisoParaSalir(int NIA){
+    public boolean permisoParaSalir(int NIA) {
         String dia = Fecha.getDiaActual();
         Fecha fechaActual = Fecha.FechaActual();
         Alumno alumno = new Alumno();
-        alumno.getAlumno(context,NIA);
+        alumno.getAlumno(context, NIA);
         boolean salir = false;
-        if(Fecha.diferenciaFechaMayorQueAños(fechaActual, alumno.fechaNacimiento,alumno.curso.numeroCurso)){
-            List<FranjaHoraria> FranjasPermitidas = FranjaHoraria.get_Franjas_Permitidas(this, alumno.curso.siglas, dia,alumno.nombre);
+        if (Fecha.diferenciaFechaMayorQueAnnos(alumno.fechaNacimiento, fechaActual, alumno.curso.etapaEducativa.edadMinimaSalir)) {
+            List<FranjaHoraria> FranjasPermitidas = FranjaHoraria.get_Franjas_Permitidas(this, alumno.curso.siglas, dia, alumno.nombre);
 
-            for (int i=0;i<FranjasPermitidas.size();i++) {
+            for (int i = 0; i < FranjasPermitidas.size(); i++) {
                 FranjaHoraria franja = FranjasPermitidas.get(i);
-                if(fechaActual.isFechaEntreDosfechas(franja.horaInicio,franja.horaFinal)){
-                    if(RegistroSalida.existeRegistroSalidaNiaIDFranja(context,NIA,franja.ID)){
+                if (fechaActual.isFechaEntreDosfechas(franja.horaInicio, franja.horaFinal)) {
+                    if (RegistroSalida.existeRegistroSalidaNiaIDFranja(context, NIA, franja.ID)) {
                         motivo = "Ya has salido en esta franja horaria";
-                    }else{
+                    } else {
                         salir = true;
-                        addRegistroSalida(context,NIA,franja.ID);
+                        addRegistroSalida(context, NIA, franja.ID);
                     }
-                }else{
+                } else {
                     motivo = "No puedes salir en esta franja horaria";
                 }
             }
-        }else{
+        } else {
             motivo = "No tienes edad suficiente para salir";
         }
         return salir;
     }
 
-    public static void addRegistroSalida(Context context,int NIA,int IDFranja){
+    public static void addRegistroSalida(Context context, int NIA, int IDFranja) {
         FeedReaderDbHelper dbHelper = new FeedReaderDbHelper(context);
         SQLiteDatabase db = dbHelper.getWritableDatabase();
 
@@ -100,7 +99,7 @@ public class ActivityLectorQR extends AppCompatActivity {
     }
 
     @Override
-    public void onBackPressed(){
+    public void onBackPressed() {
         startActivity(new Intent(context, MainActivity.class));
     }
 }

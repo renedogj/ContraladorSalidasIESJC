@@ -13,8 +13,7 @@ public class FranjaHoraria {
     public Fecha horaInicio;
     public Fecha horaFinal;
 
-    public FranjaHoraria() {
-    }
+    public FranjaHoraria() {}
 
     public FranjaHoraria(int ID, String diaSemana, Fecha horaInicio, Fecha horaFinal) {
         this.ID = ID;
@@ -147,14 +146,14 @@ public class FranjaHoraria {
         String columnaWhere = FeedReaderContract.TablaFranjasHorarias.COLUMN_NAME_ID_Franja_Horaria + " IN (SELECT " +
                 FeedReaderContract.TablaFranjasHorarias.COLUMN_NAME_ID_Franja_Horaria + " FROM " +
                 FeedReaderContract.TablaFranjasHorariasCursosPermitidos.TABLE_NAME + " WHERE " +
-                FeedReaderContract.TablaFranjasHorariasCursosPermitidos.COLUMN_NAME_Siglas_Curso + " = '" + siglas + "') AND " +
-                FeedReaderContract.TablaFranjasHorariasCursosPermitidos.COLUMN_NAME_Alumno + " = ? " + ") AND " +
+                FeedReaderContract.TablaFranjasHorariasCursosPermitidos.COLUMN_NAME_Siglas_Curso + " = ? AND " +
+                FeedReaderContract.TablaFranjasHorariasCursosPermitidos.COLUMN_NAME_Alumno + " IN ('"+alumno+"','Todos'))" + " AND " +
                 FeedReaderContract.TablaFranjasHorarias.COLUMN_NAME_Dia_semana + " = '" + dia + "'";
         Cursor cursorConsulta = db.query(
                 FeedReaderContract.TablaFranjasHorarias.TABLE_NAME,
                 columnasARetornar,
                 columnaWhere,
-                new String[]{alumno,"Todos"},
+                new String[]{siglas},
                 null,
                 null,
                 null

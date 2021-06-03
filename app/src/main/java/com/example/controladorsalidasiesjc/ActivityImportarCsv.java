@@ -38,6 +38,7 @@ public class ActivityImportarCsv extends AppCompatActivity {
     private Button bttnImportarEtapasEducativas;
     private Button bttnImportarFranjasHorarias;
     private Button bttnRelacionFranjasCursos;
+    private Button bttnRegistroSalidas;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +50,7 @@ public class ActivityImportarCsv extends AppCompatActivity {
         bttnImportarEtapasEducativas = findViewById(R.id.bttnImportarEtapasEducativas);
         bttnImportarFranjasHorarias = findViewById(R.id.bttnImportarFranjasHorarias);
         bttnRelacionFranjasCursos = findViewById(R.id.bttnRelacionFranjasCursos);
+        bttnRegistroSalidas = findViewById(R.id.bttnRegistroSalidas);
 
         pedirPermisos();
 
@@ -71,6 +73,11 @@ public class ActivityImportarCsv extends AppCompatActivity {
         bttnRelacionFranjasCursos.setOnClickListener(v -> {
             limpiarTablas(FeedReaderContract.TablaFranjasHorariasCursosPermitidos.TABLE_NAME);
             Toast.makeText(this, "Relaciones Franja-Curso borradas correctamente", Toast.LENGTH_SHORT).show();
+        });
+
+        bttnRegistroSalidas.setOnClickListener(v -> {
+            limpiarTablas(FeedReaderContract.TablaRegistroSalida.TABLE_NAME);
+            Toast.makeText(this, "Tabla registros borradas correctamente", Toast.LENGTH_SHORT).show();
         });
     }
 

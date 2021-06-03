@@ -15,124 +15,333 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="5dp"
             android:orientation="vertical">
 
-            <Spinner
-                android:id="@+id/spinEtapas"
-                android:layout_width="311dp"
-                android:layout_height="45dp"
-                android:layout_marginLeft="25dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginRight="25dp"
-                android:layout_marginBottom="10dp"
-                android:translationY="5dp" />
-
-            <Spinner
-                android:id="@+id/spinCursos"
-                android:layout_width="311dp"
-                android:layout_height="45dp"
-                android:layout_marginLeft="25dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginRight="25dp"
-                android:layout_marginBottom="10dp"
-                android:translationY="-10dp" />
-
-            <TextView
-                android:id="@+id/tvNombreCurso"
-                android:layout_width="375dp"
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="left|center_vertical"
-                android:lineHeight="22dp"
-                android:paddingLeft="12dp"
-                android:paddingTop="5dp"
-                android:paddingRight="12dp"
-                android:paddingBottom="5dp"
-                android:text="2º de C.F.G.S. (Programación de la producción en fabricación mecánica) (Pres.)"
-                android:textSize="11sp"
-                android:textStyle="bold"
-                android:translationX="0dp"
-                android:translationY="-10dp" />
-
-            <TextView
-                android:id="@+id/textView4"
-                android:layout_width="93dp"
-                android:layout_height="wrap_content"
-                android:text="Alumnos:"
-                android:textAlignment="viewStart"
-                android:textAllCaps="false"
-                android:textSize="16dp"
-                android:textStyle="bold"
-                android:translationX="10dp"
-                android:translationY="0dp" />
-
-            <Spinner
-                android:id="@+id/spinAlumnos"
-                android:layout_width="311dp"
-                android:layout_height="45dp"
+                android:layout_marginStart="20dp"
                 android:layout_marginTop="10dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginRight="25dp"
-                android:translationX="24dp"
-                android:translationY="-10dp" />
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="10dp"
+                app:cardBackgroundColor="#F2F2F2"
+                app:cardCornerRadius="15dp"
+                app:cardElevation="5dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp"
+                        android:layout_weight="1" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <Space
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1" />
+
+                        <Spinner
+                            android:id="@+id/spinEtapas"
+                            android:layout_width="320dp"
+                            android:layout_height="45dp" />
+
+                        <Space
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1" />
+                    </LinearLayout>
+
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="10dp"
+                        android:layout_weight="1" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <Space
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1" />
+
+                        <Spinner
+                            android:id="@+id/spinCursos"
+                            android:layout_width="320dp"
+                            android:layout_height="45dp" />
+
+                        <Space
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1" />
+                    </LinearLayout>
+
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp"
+                        android:layout_weight="1" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:paddingLeft="12dp"
-                android:paddingRight="10dp">
+                android:paddingStart="30dp"
+                android:paddingTop="15dp"
+                android:paddingEnd="30dp"
+                android:paddingBottom="15dp">
 
                 <TextView
-                    android:id="@+id/textView2"
+                    android:id="@+id/tvNombreCurso"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Edad minima para salir:"
-                    android:textSize="18sp"
+                    android:lineHeight="22dp"
+                    android:minWidth="150dp"
+                    android:minHeight="25dp"
+                    android:textSize="13sp"
                     android:textStyle="bold" />
-
-                <Space
-                    android:layout_width="20dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1" />
-
-                <EditText
-                    android:id="@+id/etEdadMinima"
-                    android:layout_width="100dp"
-                    android:layout_height="wrap_content"
-                    android:inputType="number"
-                    android:translationX="-70dp" />
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/textView3"
+            <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:lineHeight="22dp"
-                android:paddingLeft="14dp"
-                android:paddingTop="15dp"
-                android:paddingRight="12dp"
-                android:paddingBottom="15dp"
-                android:text="Franjas Horarias a las que pueden salir:"
-                android:textSize="15sp"
-                android:textStyle="bold"
-                android:translationY="-15dp" />
-
-            <Spinner
-                android:id="@+id/spinDiasSemana"
-                android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:layout_marginLeft="15dp"
+                android:layout_marginStart="20dp"
                 android:layout_marginTop="10dp"
-                android:layout_marginRight="150dp"
+                android:layout_marginEnd="20dp"
                 android:layout_marginBottom="10dp"
-                android:translationX="60dp"
-                android:translationY="-33dp" />
+                app:cardBackgroundColor="#F2F2F2"
+                app:cardCornerRadius="15dp"
+                app:cardElevation="5dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="15dp"
+                        android:layout_weight="1" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <Space
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1" />
+
+                        <TextView
+                            android:id="@+id/textView4"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:minWidth="320dp"
+                            android:text="Alumnos: "
+                            android:textSize="17sp"
+                            android:textStyle="bold" />
+
+                        <Space
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1" />
+                    </LinearLayout>
+
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="10dp"
+                        android:layout_weight="1" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <Space
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1" />
+
+                        <Spinner
+                            android:id="@+id/spinAlumnos"
+                            android:layout_width="320dp"
+                            android:layout_height="45dp" />
+
+                        <Space
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1" />
+                    </LinearLayout>
+
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="15dp"
+                        android:layout_weight="1" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="10dp"
+                app:cardBackgroundColor="#F2F2F2"
+                app:cardCornerRadius="15dp"
+                app:cardElevation="5dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <Space
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1" />
+
+                        <TextView
+                            android:id="@+id/tvEdadMinima"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Edad minima para salir:"
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
+
+                        <Space
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_weight="2" />
+
+                        <EditText
+                            android:id="@+id/etEdadMinima"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:ems="4"
+                            android:inputType="number" />
+
+                        <Space
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_weight="2" />
+                    </LinearLayout>
+
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="10dp"
+                        android:layout_weight="1" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingStart="30dp"
+                        android:paddingEnd="30dp">
+
+                        <Button
+                            android:id="@+id/bttnActualizarEdadMinima"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="10dp"
+                            android:text="ACTUALIZAR EDAD MINIMA" />
+                    </LinearLayout>
+
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp"
+                        android:layout_weight="1" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"
+                    android:layout_weight="1" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+
+                    <TextView
+                        android:id="@+id/textView3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:lineHeight="22dp"
+                        android:text="Franjas Horarias a las que pueden salir:"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+                </LinearLayout>
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp"
+                    android:layout_weight="1" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+
+                    <Spinner
+                        android:id="@+id/spinDiasSemana"
+                        android:layout_width="320dp"
+                        android:layout_height="45dp" />
+
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+                </LinearLayout>
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="15dp"
+                    android:layout_weight="1" />
+            </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerView"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="match_parent"
+                android:minHeight="200dp"/>
         </LinearLayout>
     </ScrollView>
 

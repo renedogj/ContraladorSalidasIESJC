@@ -56,16 +56,18 @@ public class RelacionFranjasCursos {
         return RelacionesFranjasCursos;
     }
 
-    public static boolean getRelacionFranjasCursos(Context context, FranjaHoraria franjaHoraria, Curso curso) {
+    public static boolean getRelacionFranjasCursos(Context context, FranjaHoraria franjaHoraria, Curso curso,String alumno) {
         FeedReaderDbHelper dbHelper = new FeedReaderDbHelper(context);
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         String[] columnasARetornar = {
                 FeedReaderContract.TablaFranjasHorariasCursosPermitidos.COLUMN_NAME_Relacion_FC,
                 FeedReaderContract.TablaFranjasHorariasCursosPermitidos.COLUMN_NAME_ID_Franja_Horaria,
-                FeedReaderContract.TablaFranjasHorariasCursosPermitidos.COLUMN_NAME_Siglas_Curso
+                FeedReaderContract.TablaFranjasHorariasCursosPermitidos.COLUMN_NAME_Siglas_Curso,
+                FeedReaderContract.TablaFranjasHorariasCursosPermitidos.COLUMN_NAME_Alumno
         };
         String columnaWhere = FeedReaderContract.TablaFranjasHorariasCursosPermitidos.COLUMN_NAME_ID_Franja_Horaria + " = " + franjaHoraria.ID +
-                " AND " + FeedReaderContract.TablaFranjasHorariasCursosPermitidos.COLUMN_NAME_Siglas_Curso + " = '" + curso.siglas+"'";
+                " AND " + FeedReaderContract.TablaFranjasHorariasCursosPermitidos.COLUMN_NAME_Siglas_Curso + " = '" + curso.siglas+"' AND "+
+                FeedReaderContract.TablaFranjasHorariasCursosPermitidos.COLUMN_NAME_Alumno + " IN ('"+alumno+"','Todos')";
         Cursor cursorConsulta = db.query(
                 FeedReaderContract.TablaFranjasHorariasCursosPermitidos.TABLE_NAME,
                 columnasARetornar,

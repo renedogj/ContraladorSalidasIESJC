@@ -1,11 +1,14 @@
 package com.example.controladorsalidasiesjc;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.Switch;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -70,17 +73,13 @@ public class SwichAdapter extends RecyclerView.Adapter<SwichAdapter.ViewHolderSw
             });
         }
 
-        public void asignarSwitch(FranjaHoraria franjaHoraria,Curso curso,Context context, String alumno) {
+        public void asignarSwitch(FranjaHoraria franjaHoraria, Curso curso, Context context, String alumno) {
             this.franjaHoraria = franjaHoraria;
             this.switchAdapter.setText(franjaHoraria.horaInicio.toString() + "-" + franjaHoraria.horaFinal.toString());
             this.curso = curso;
             this.context = context;
             this.alumno = alumno;
-            if(RelacionFranjasCursos.getRelacionFranjasCursos(context,franjaHoraria,curso)){
-                this.switchAdapter.setChecked(true);
-            }else{
-                this.switchAdapter.setChecked(false);
-            }
+            this.switchAdapter.setChecked(RelacionFranjasCursos.getRelacionFranjasCursos(context, franjaHoraria, curso,alumno));
         }
     }
 }

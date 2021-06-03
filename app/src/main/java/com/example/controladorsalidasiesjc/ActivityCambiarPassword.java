@@ -34,17 +34,26 @@ public class ActivityCambiarPassword extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (etPassword1.getText().toString().equals(etPassword2.getText().toString())){
-                    SharedPreferences sharedPreferences = context.getSharedPreferences("seguridad", Context.MODE_PRIVATE);
-                    SharedPreferences.Editor editor = sharedPreferences.edit();
-                    editor.putString("password", etPassword1.getText().toString());
-                    editor.commit();
+                    if(etPassword1.getText().toString().trim().equals("")){
+                        SharedPreferences sharedPreferences = context.getSharedPreferences("seguridad", Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.putString("password", etPassword1.getText().toString().trim());
+                        editor.commit();
 
-                    Toast.makeText(context,"Contraseña actualizada con éxito", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(context, MainActivity.class));
+                        Toast.makeText(context,"Contraseña actualizada con éxito", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(context, MainActivity.class));
+                    }else {
+                        Toast.makeText(context,"La contraseña no puede estar vacia", Toast.LENGTH_SHORT).show();
+                    }
                 }else{
                     Toast.makeText(context,"Las contraseñas no coinciden", Toast.LENGTH_SHORT).show();
                 }
             }
         });
+    }
+
+    @Override
+    public void onBackPressed(){
+        startActivity(new Intent(context, MainActivity.class));
     }
 }

@@ -140,5 +140,7 @@ public class EtapaEducativa {
         String[] selectionArgs = { this.ID+"" };
 
         int count = db.update(FeedReaderContract.TablaEtapasEducativas.TABLE_NAME,values, selection, selectionArgs);
+
+        db.close();
     }
 }
