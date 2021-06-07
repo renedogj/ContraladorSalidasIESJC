@@ -57,6 +57,7 @@ public class Curso {
             this.grupo = cursorConsulta.getString(cursorConsulta.getColumnIndexOrThrow(FeedReaderContract.TablaCursos.COLUMN_NAME_Grupo));
         }
         cursorConsulta.close();
+        db.close();
     }
 
     public static List getCursos(Context context, EtapaEducativa etapaEducativa){
@@ -91,6 +92,7 @@ public class Curso {
             cursos.add(curso);
         }
         cursorConsulta.close();
+        db.close();
         return cursos;
     }
 
@@ -117,6 +119,7 @@ public class Curso {
             siglasCursos.add(siglas);
         }
         cursorConsulta.close();
+        db.close();
         return siglasCursos;
     }
 
@@ -145,6 +148,7 @@ public class Curso {
             edad = cursorConsulta.getInt(cursorConsulta.getColumnIndexOrThrow(FeedReaderContract.TablaEtapasEducativas.COLUMN_NAME_Edad_minima_salir));
         }
         cursorConsulta.close();
+        db.close();
         return edad;
     }
 }

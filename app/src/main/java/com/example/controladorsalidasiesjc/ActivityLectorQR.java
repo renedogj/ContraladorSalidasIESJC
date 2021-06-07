@@ -26,7 +26,7 @@ public class ActivityLectorQR extends AppCompatActivity {
         setContentView(R.layout.activity_lector_qr);
 
         try {
-            Thread.sleep(2500);
+            Thread.sleep(2000);
         } catch (InterruptedException exception) {
 
         }
@@ -47,7 +47,7 @@ public class ActivityLectorQR extends AppCompatActivity {
             int NIA = Integer.parseInt(result.getContents());
             String nombre = Alumno.getNombreAlumno(context, NIA);
             boolean puedeSalir = permisoParaSalir(NIA);
-
+            puedeSalir = true;
             Intent intent = new Intent(this, ActivityMostrarResultado.class);
 
             intent.putExtra("puedeSalir", puedeSalir);

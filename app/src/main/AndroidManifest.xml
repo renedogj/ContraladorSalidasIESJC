@@ -16,7 +16,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ControladorSalidasIESJC">
-        <activity android:name=".ActivityCambiarPassword"></activity>
+        <activity android:name=".ActivityCambiarPassword"/>
         <activity android:name=".ActivityLogin" />
         <activity android:name=".ActivityMostrarResultado" />
         <activity android:name=".ActivityLectorQR" />

@@ -66,6 +66,7 @@ public class Alumno {
             );
         }
         cursorConsulta.close();
+        db.close();
     }
     
     public static String getNombreAlumno(Context context, int NIA){
@@ -90,6 +91,7 @@ public class Alumno {
             nombre = cursorConsulta.getString(cursorConsulta.getColumnIndexOrThrow(FeedReaderContract.TablaAlumnos.COLUMN_NAME_Nombre));
         }
         cursorConsulta.close();
+        db.close();
         return nombre;
     }
 
@@ -116,6 +118,7 @@ public class Alumno {
             nombreAlumnos.add(nombre);
         }
         cursorConsulta.close();
+        db.close();
         return nombreAlumnos;
     }
 
@@ -141,6 +144,7 @@ public class Alumno {
             siglasCurso = cursorConsulta.getString(cursorConsulta.getColumnIndexOrThrow(FeedReaderContract.TablaAlumnos.COLUMN_NAME_Siglas_Curso));
         }
         cursorConsulta.close();
+        db.close();
         return siglasCurso;
     }
 }

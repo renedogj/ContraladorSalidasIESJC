@@ -65,6 +65,7 @@ public class FranjaHoraria {
             ));
         }
         cursorConsulta.close();
+        db.close();
         return FranjasHorarias;
     }
 
@@ -92,6 +93,7 @@ public class FranjaHoraria {
             );
         }
         cursorConsulta.close();
+        db.close();
         return IdFranjasHorarias;
     }
 
@@ -130,6 +132,7 @@ public class FranjaHoraria {
             );
         }
         cursorConsulta.close();
+        db.close();
     }
 
     public static List get_Franjas_Permitidas(Context context, String siglas, String dia,String alumno) {
@@ -176,7 +179,7 @@ public class FranjaHoraria {
             FranjasPermitidas.add(franja);
         }
         cursorConsulta.close();
-
+        db.close();
         return FranjasPermitidas;
     }
 }

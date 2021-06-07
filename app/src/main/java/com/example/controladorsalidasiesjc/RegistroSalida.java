@@ -56,6 +56,7 @@ public class RegistroSalida {
             registrosSalida.add(new RegistroSalida(id,NIA,id_franja,fecha));
         }
         cursorConsulta.close();
+        db.close();
         return registrosSalida;
     }
 
@@ -85,6 +86,7 @@ public class RegistroSalida {
             registroSalida = true;
         }
         cursorConsulta.close();
+        db.close();
         return registroSalida;
     }
 }

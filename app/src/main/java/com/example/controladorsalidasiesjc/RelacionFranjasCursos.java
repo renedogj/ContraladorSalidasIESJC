@@ -53,6 +53,7 @@ public class RelacionFranjasCursos {
             );
         }
         cursorConsulta.close();
+        db.close();
         return RelacionesFranjasCursos;
     }
 
@@ -82,6 +83,7 @@ public class RelacionFranjasCursos {
             return true;
         }
         cursorConsulta.close();
+        db.close();
         return false;
     }
 
@@ -106,5 +108,6 @@ public class RelacionFranjasCursos {
                 " AND " + FeedReaderContract.TablaFranjasHorariasCursosPermitidos.COLUMN_NAME_Siglas_Curso + " = '" + curso.siglas + "' AND " +
                 FeedReaderContract.TablaFranjasHorariasCursosPermitidos.COLUMN_NAME_Alumno + " = '" + alumno + "'";
         db.execSQL(consulta);
+        db.close();
     }
 }

@@ -47,6 +47,7 @@ public class ActivityMostrarResultado extends AppCompatActivity {
         FeedReaderDbHelper dbHelper = new FeedReaderDbHelper(context);
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         db.execSQL(FeedReaderContract.TablaRegistroSalida.SQL_DELETE_WEEKLY);
+        db.close();
 
         Intent intent = new Intent(this, ActivityLectorQR.class);
         startActivity(intent);

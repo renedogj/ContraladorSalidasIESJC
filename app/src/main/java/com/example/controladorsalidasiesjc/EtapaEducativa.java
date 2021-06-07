@@ -47,6 +47,7 @@ public class EtapaEducativa {
             this.edadMinimaSalir = cursorConsulta.getInt(cursorConsulta.getColumnIndexOrThrow(FeedReaderContract.TablaEtapasEducativas.COLUMN_NAME_Edad_minima_salir));
         }
         cursorConsulta.close();
+        db.close();
     }
 
     public void getEtapaEducativa(Context context, String nombreEtapa){
@@ -74,6 +75,7 @@ public class EtapaEducativa {
             this.edadMinimaSalir = cursorConsulta.getInt(cursorConsulta.getColumnIndexOrThrow(FeedReaderContract.TablaEtapasEducativas.COLUMN_NAME_Edad_minima_salir));
         }
         cursorConsulta.close();
+        db.close();
     }
 
     public static List getEtapasEducativas(Context context){
@@ -102,6 +104,7 @@ public class EtapaEducativa {
             etapasEducativas.add(etapaEducativa);
         }
         cursorConsulta.close();
+        db.close();
         return etapasEducativas;
     }
 
@@ -126,6 +129,7 @@ public class EtapaEducativa {
             nombreEtapasEducativas.add(nombre);
         }
         cursorConsulta.close();
+        db.close();
         return nombreEtapasEducativas;
     }
 

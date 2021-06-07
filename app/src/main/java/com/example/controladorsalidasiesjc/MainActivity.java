@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
         bttnCambiarPassword = findViewById(R.id.bttnCambiarPassword);
 
         bttonLectorQR.setOnClickListener(v ->
-                startActivity(new Intent(context, ActivityLectorQR.class))
+                startActivity(new Intent(context, ActivityMostrarResultado.class))
         );
 
         bttnConfiguracion.setOnClickListener((View v) ->
@@ -48,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
         FeedReaderDbHelper dbHelper = new FeedReaderDbHelper(context);
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         db.execSQL(FeedReaderContract.TablaRegistroSalida.SQL_DELETE_WEEKLY);
+        db.close();
     }
 
     public void irAlLogin(int activity){
