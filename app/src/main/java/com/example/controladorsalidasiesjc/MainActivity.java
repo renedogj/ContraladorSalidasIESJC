@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
         bttnCambiarPassword = findViewById(R.id.bttnCambiarPassword);
 
         bttonLectorQR.setOnClickListener(v ->
-                startActivity(new Intent(context, ActivityMostrarResultado.class))
+                startActivity(new Intent(context, ActivityLectorQR.class))
         );
 
         bttnConfiguracion.setOnClickListener((View v) ->
