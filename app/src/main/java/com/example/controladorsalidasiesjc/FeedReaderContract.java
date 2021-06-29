@@ -108,16 +108,18 @@ public class FeedReaderContract {
         public static final String COLUMN_NAME_NIA = TablaAlumnos.COLUMN_NAME_NIA;
         public static final String COLUMN_NAME_ID_Franja_Horaria = TablaFranjasHorarias.COLUMN_NAME_ID_Franja_Horaria;
         public static final String COLUMN_NAME_FECHA_SALIDA ="Fecha_Salida";
+        public static final String COLUMN_NAME_Registro_Guardado ="Registro_Guardado";
 
         public static final String SQL_CREATE_ENTRIES =
                 "CREATE TABLE " + TABLE_NAME + " (" +
                         COLUMN_NAME_ID_Registro + " INTEGER PRIMARY KEY," +
                         COLUMN_NAME_NIA + " INTERGER," +
                         COLUMN_NAME_ID_Franja_Horaria + " INTERGER," +
-                        COLUMN_NAME_FECHA_SALIDA + " DATE)";
+                        COLUMN_NAME_FECHA_SALIDA + " DATE," +
+                        COLUMN_NAME_Registro_Guardado + " INTERGER)";
 
         public static final String SQL_DELETE_ENTRIES = "DROP TABLE IF EXISTS " + TABLE_NAME;
         public static final String SQL_DELETE_WEEKLY = "DELETE FROM "+TABLE_NAME+ " WHERE " + COLUMN_NAME_ID_Registro +" IN (SELECT " + COLUMN_NAME_ID_Registro +
-                    " FROM "+TABLE_NAME+ " WHERE (julianday(" + Fecha.getFechaActual() + ") - julianday(" + COLUMN_NAME_FECHA_SALIDA + ") ) >= 7)";
+                    " FROM "+TABLE_NAME+ " WHERE (julianday(" + Fecha.getFechaActual() + ") - julianday(" + COLUMN_NAME_FECHA_SALIDA + ") ) >= 7 AND "+COLUMN_NAME_Registro_Guardado+" = 1)";
     }
 }

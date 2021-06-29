@@ -13,13 +13,13 @@ import android.widget.Toast;
 
 public class ActivityCambiarPassword extends AppCompatActivity {
 
-    public static final int ACTIVITY_CAMBIAR_PASSWORD = 3;
+    public static final int CODIO_ACTIVITY = 3;
 
     Context context = ActivityCambiarPassword.this;
 
     private EditText etPassword1;
     private EditText etPassword2;
-    private Button bttnAcceder;
+    private Button bttnCambiarPassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,9 +28,9 @@ public class ActivityCambiarPassword extends AppCompatActivity {
 
         etPassword1 = findViewById(R.id.etPassword1);
         etPassword2 = findViewById(R.id.etPassword2);
-        bttnAcceder = findViewById(R.id.bttnAcceder);
+        bttnCambiarPassword = findViewById(R.id.bttnCambiarPassword);
 
-        bttnAcceder.setOnClickListener(new View.OnClickListener() {
+        bttnCambiarPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (etPassword1.getText().toString().equals(etPassword2.getText().toString())){

@@ -24,7 +24,7 @@ import java.util.Objects;
 
 public class ActivityImportarCsv extends AppCompatActivity {
 
-    public static final int ACTIVITY_IMPORTAR_CSV = 2;
+    public static final int CODIO_ACTIVITY = 2;
 
     public static final int requestCodeAlumnos = 0;
     public static final int requestCodeCursos = 1;

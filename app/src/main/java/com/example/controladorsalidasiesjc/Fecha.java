@@ -135,26 +135,21 @@ public class Fecha {
         Locale esLocale = new Locale("es", "ES");
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-dd-MM", esLocale);
         Date date = new Date();
-        String fecha = dateFormat.format(date);
-        return fecha;
+        return dateFormat.format(date);
     }
 
     public static String getHoraActual() {
         SimpleDateFormat dateFormat = new SimpleDateFormat("hh", new Locale("es_ES"));
         dateFormat.setTimeZone(TimeZone.getTimeZone("Europe/Madrid"));
         Date date = new Date();
-        String hora = dateFormat.format(date);
-
-        return hora;
+        return dateFormat.format(date);
     }
 
     public static String getMinutoActual() {
         SimpleDateFormat dateFormat = new SimpleDateFormat("mm", new Locale("es_ES"));
         dateFormat.setTimeZone(TimeZone.getTimeZone("Europe/Madrid"));
         Date date = new Date();
-        String minuto = dateFormat.format(date);
-
-        return minuto;
+        return dateFormat.format(date);
     }
 
     /**
@@ -215,7 +210,7 @@ public class Fecha {
      * {@code false} Si el día no existe
      */
     public static boolean existeDia(int dia) {
-        return dia > 0 || dia < 32;
+        return dia > 0 && dia < 32;
     }
 
     /**

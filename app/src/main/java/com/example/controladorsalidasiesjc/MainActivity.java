@@ -1,5 +1,6 @@
 package com.example.controladorsalidasiesjc;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
@@ -8,6 +9,12 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -34,16 +41,18 @@ public class MainActivity extends AppCompatActivity {
         );
 
         bttnConfiguracion.setOnClickListener((View v) ->
-                irAlLogin(ActivityConfiguracion.ACTIVITY_CONFIGURACION)
+                irAlLogin(ActivityConfiguracion.CODIO_ACTIVITY)
         );
 
         bttnImportarCSV.setOnClickListener(v ->
-                irAlLogin(ActivityImportarCsv.ACTIVITY_IMPORTAR_CSV)
+                irAlLogin(ActivityImportarCsv.CODIO_ACTIVITY)
         );
 
         bttnCambiarPassword.setOnClickListener(v ->
-                irAlLogin( ActivityCambiarPassword.ACTIVITY_CAMBIAR_PASSWORD)
+                irAlLogin(ActivityCambiarPassword.CODIO_ACTIVITY)
         );
+
+        RegistroSalida.ActualizarRegistros(context);
 
         FeedReaderDbHelper dbHelper = new FeedReaderDbHelper(context);
         SQLiteDatabase db = dbHelper.getWritableDatabase();
@@ -51,9 +60,9 @@ public class MainActivity extends AppCompatActivity {
         db.close();
     }
 
-    public void irAlLogin(int activity){
+    public void irAlLogin(int activity) {
         intent = new Intent(context, ActivityLogin.class);
-        intent.putExtra("activity",activity);
+        intent.putExtra("activity", activity);
         startActivity(intent);
     }
 }

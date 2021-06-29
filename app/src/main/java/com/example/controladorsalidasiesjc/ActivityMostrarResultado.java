@@ -44,6 +44,8 @@ public class ActivityMostrarResultado extends AppCompatActivity {
             tvMotivo.setText(motivo);
         }
 
+        RegistroSalida.ActualizarRegistros(context);
+
         FeedReaderDbHelper dbHelper = new FeedReaderDbHelper(context);
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         db.execSQL(FeedReaderContract.TablaRegistroSalida.SQL_DELETE_WEEKLY);

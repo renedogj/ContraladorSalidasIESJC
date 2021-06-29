@@ -22,11 +22,6 @@ public class FranjaHoraria {
         this.horaFinal = horaFinal;
     }
 
-    public FranjaHoraria(Fecha horaInicio, Fecha horaFinal) {
-        this.horaInicio = horaInicio;
-        this.horaFinal = horaFinal;
-    }
-
     public static List getFranjasDiaSemana(Context context, String diaSemana) {
         FeedReaderDbHelper dbHelper = new FeedReaderDbHelper(context);
         SQLiteDatabase db = dbHelper.getWritableDatabase();

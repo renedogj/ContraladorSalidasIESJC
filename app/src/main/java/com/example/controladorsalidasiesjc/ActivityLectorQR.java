@@ -47,7 +47,6 @@ public class ActivityLectorQR extends AppCompatActivity {
             int NIA = Integer.parseInt(result.getContents());
             String nombre = Alumno.getNombreAlumno(context, NIA);
             boolean puedeSalir = permisoParaSalir(NIA);
-            puedeSalir = true;
             Intent intent = new Intent(this, ActivityMostrarResultado.class);
 
             intent.putExtra("puedeSalir", puedeSalir);
@@ -93,6 +92,7 @@ public class ActivityLectorQR extends AppCompatActivity {
         registro.put(FeedReaderContract.TablaRegistroSalida.COLUMN_NAME_NIA, NIA);
         registro.put(FeedReaderContract.TablaRegistroSalida.COLUMN_NAME_ID_Franja_Horaria, IDFranja);
         registro.put(FeedReaderContract.TablaRegistroSalida.COLUMN_NAME_FECHA_SALIDA, Fecha.getFechaActual());
+        registro.put(FeedReaderContract.TablaRegistroSalida.COLUMN_NAME_Registro_Guardado, 0);
 
         db.insert(FeedReaderContract.TablaRegistroSalida.TABLE_NAME, null, registro);
         db.close();

@@ -34,13 +34,13 @@ public class ActivityLogin extends AppCompatActivity {
             public void onClick(View v) {
                 if (etPassword.getText().toString().equals(password)) {
                     switch (activity) {
-                        case ActivityConfiguracion.ACTIVITY_CONFIGURACION:
+                        case ActivityConfiguracion.CODIO_ACTIVITY:
                             startActivity(new Intent(context, ActivityConfiguracion.class));
                             break;
-                        case ActivityImportarCsv.ACTIVITY_IMPORTAR_CSV:
+                        case ActivityImportarCsv.CODIO_ACTIVITY:
                             startActivity(new Intent(context, ActivityImportarCsv.class));
                             break;
-                        case ActivityCambiarPassword.ACTIVITY_CAMBIAR_PASSWORD:
+                        case ActivityCambiarPassword.CODIO_ACTIVITY:
                             startActivity(new Intent(context, ActivityCambiarPassword.class));
                             break;
                     }

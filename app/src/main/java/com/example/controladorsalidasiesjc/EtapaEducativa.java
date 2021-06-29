@@ -4,7 +4,6 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -70,9 +69,12 @@ public class EtapaEducativa {
                 null
         );
         if(cursorConsulta.moveToNext()){
-            this.ID = cursorConsulta.getInt(cursorConsulta.getColumnIndexOrThrow(FeedReaderContract.TablaEtapasEducativas.COLUMN_NAME_ID_Etapa));
-            this.nombre = cursorConsulta.getString(cursorConsulta.getColumnIndexOrThrow(FeedReaderContract.TablaEtapasEducativas.COLUMN_NAME_Nombre));
-            this.edadMinimaSalir = cursorConsulta.getInt(cursorConsulta.getColumnIndexOrThrow(FeedReaderContract.TablaEtapasEducativas.COLUMN_NAME_Edad_minima_salir));
+            this.ID = cursorConsulta.getInt(
+                    cursorConsulta.getColumnIndexOrThrow(FeedReaderContract.TablaEtapasEducativas.COLUMN_NAME_ID_Etapa));
+            this.nombre = cursorConsulta.getString(
+                    cursorConsulta.getColumnIndexOrThrow(FeedReaderContract.TablaEtapasEducativas.COLUMN_NAME_Nombre));
+            this.edadMinimaSalir = cursorConsulta.getInt(
+                    cursorConsulta.getColumnIndexOrThrow(FeedReaderContract.TablaEtapasEducativas.COLUMN_NAME_Edad_minima_salir));
         }
         cursorConsulta.close();
         db.close();

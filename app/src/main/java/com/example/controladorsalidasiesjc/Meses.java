@@ -15,8 +15,8 @@ public enum Meses {
     Agosto      (8),
     Septiembre  (9),
     Octubre    (10),
-    noviembre  (11),
-    diciembre  (12);
+    Noviembre  (11),
+    Diciembre  (12);
 
     private final int num_mes;
 

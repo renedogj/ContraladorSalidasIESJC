@@ -21,7 +21,7 @@ import java.util.List;
 
 public class ActivityConfiguracion extends AppCompatActivity {
 
-    public static final int ACTIVITY_CONFIGURACION = 1;
+    public static final int CODIO_ACTIVITY = 1;
 
     Context context = ActivityConfiguracion.this;
     private Spinner spinEtapas;
@@ -53,11 +53,10 @@ public class ActivityConfiguracion extends AppCompatActivity {
         etEdadMinima = findViewById(R.id.etEdadMinima);
         bttnActualizarEdadMinima = findViewById(R.id.bttnActualizarEdadMinima);
 
-
         recyclerView = findViewById(R.id.recyclerView);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setLayoutManager(new LinearLayoutManager(context));
 
-        ArrayAdapter<String> adapterEtapas = new ArrayAdapter<String>(context, R.layout.spinner_item_etapas_cursos, EtapaEducativa.getNombreEtapaEducativas(this));
+        ArrayAdapter<String> adapterEtapas = new ArrayAdapter<String>(context, R.layout.spinner_item_etapas_cursos, EtapaEducativa.getNombreEtapaEducativas(context));
         spinEtapas.setAdapter(adapterEtapas);
         spinEtapas.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -96,17 +95,20 @@ public class ActivityConfiguracion extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 listFranjasHorarias = FranjaHoraria.getFranjasDiaSemana(context, diaSemanaSelect);
-                SwichAdapter adapter = new SwichAdapter(listFranjasHorarias, curso, context, spinAlumnos.getSelectedItem().toString());
+                SwichAdapter adapter = new SwichAdapter(listFranjasHorarias, curso, context,
+                        spinAlumnos.getSelectedItem().toString());
                 recyclerView.setAdapter(adapter);
 
                 String diasSemana[] = {"Lunes", "Martes", "Miercoles", "Jueves", "Viernes"};
-                ArrayAdapter<String> adapterSpinDiasSemana = new ArrayAdapter<String>(context, R.layout.spinner_item_etapas_cursos, diasSemana);
+                ArrayAdapter<String> adapterSpinDiasSemana = new ArrayAdapter<String>(context,
+                        R.layout.spinner_item_etapas_cursos, diasSemana);
                 spinDiasSemana.setAdapter(adapterSpinDiasSemana);
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-
+                Toast.makeText(ActivityConfiguracion.this,
+                        "Se ha producido un error al seleccionar el alumno", Toast.LENGTH_LONG).show();
             }
         });
 
@@ -129,7 +131,7 @@ public class ActivityConfiguracion extends AppCompatActivity {
         bttnActualizarEdadMinima.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String edad = etEdadMinima.getText().toString();
+                String edad = etEdadMinima.getText().toString().trim();
                 if(!edad.equals("")){
                     etapaEducativa.actualizarEdadMinima(context, Integer.parseInt(edad));
                 }
